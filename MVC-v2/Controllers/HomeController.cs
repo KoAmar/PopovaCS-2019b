@@ -2,21 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC_v2.Models;
+using MVC_v2.Models.Pulls;
 
 namespace MVC_v2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPullRepository _pullRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPullRepository pullRepository)
         {
+            _pullRepository = pullRepository;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = _pullRepository.GePulls();
+            return View(model);
         }
 
         public IActionResult Privacy()
