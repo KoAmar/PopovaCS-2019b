@@ -17,9 +17,15 @@ namespace MVC_v2.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Pulls()
         {
-            var model = _pullRepository.GePulls();
+            var model = _pullRepository.GetPulls();
+            return View(model);
+        }
+
+        public IActionResult Pull(int id)
+        {
+            var model = _pullRepository.GetPull(id);
             return View(model);
         }
 

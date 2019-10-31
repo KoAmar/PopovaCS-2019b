@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClearProject", "ClearProjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC-v1", "MVC-v1\MVC-v1.csproj", "{7CB52CD3-D657-4EBE-94E2-7448E417CF96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC-v2", "MVC-v2\MVC-v2.csproj", "{8842D4B6-0BA4-4E94-809F-E2583C686440}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainMVC", "MainMVC\MainMVC.csproj", "{8842D4B6-0BA4-4E94-809F-E2583C686440}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

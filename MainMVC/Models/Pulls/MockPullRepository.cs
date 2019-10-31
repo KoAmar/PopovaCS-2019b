@@ -12,6 +12,7 @@ namespace MVC_v2.Models.Pulls
             {
                 new Pull{
                     Id = 0,
+                    Name = "First Pull", 
                     CreatorLogin = "Pavlik",
                     CreationDate = default,
                     Questions = new List<Question>(){
@@ -34,6 +35,7 @@ namespace MVC_v2.Models.Pulls
                 },
                 new Pull(){
                     Id = 1,
+                    Name = "Second Pull", 
                     CreatorLogin = "KoAmar",
                     CreationDate = default,
                     Questions = new List<Question>(){
@@ -59,10 +61,11 @@ namespace MVC_v2.Models.Pulls
 
         public Pull GetPull(int id)
         {
+//            if(_pulls.)
             return _pulls[id];
         }
 
-        public IList<Pull> GePulls()
+        public IList<Pull> GetPulls()
         {
             return _pulls;
         }

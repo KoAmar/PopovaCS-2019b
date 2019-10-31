@@ -1,0 +1,17 @@
+@model Pull
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="card text-center">
+    <dif class="row">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Id. @Model.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@Model.CreatorLogin</h6>
+            <p class="card-text">@Model.CreationDate</p>
+            <a asp-controller="Home" asp-action="Pull" asp-route-id="@Model.Id" class="card-link">Открыть</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </dif>
+</div>
