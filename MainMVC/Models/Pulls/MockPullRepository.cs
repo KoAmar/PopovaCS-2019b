@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MVC_v2.Models.Pulls
 {
@@ -68,6 +70,16 @@ namespace MVC_v2.Models.Pulls
         public IList<Pull> GetPulls()
         {
             return _pulls;
+        }
+
+        public Pull Add(Pull pull)
+        {
+            pull.Id = _pulls.Max(e => e.Id) + 1;
+            pull.CreatorLogin = "default";
+            pull.CreationDate = DateTime.Now;
+            pull.Questions = new List<Question>();
+            _pulls.Add(pull);
+            return pull;
         }
     }
 }

@@ -6,5 +6,6 @@ namespace MVC_v2.Models.Pulls
     {
         Pull GetPull(int id);
         IList<Pull> GetPulls();
-    }
+        Pull Add(Pull pull);
+    }    
 }

@@ -34,9 +34,17 @@ namespace MVC_v2.Controllers
             return View();
         }
         
-        public IActionResult Pavlik()
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
+        }
+        
+        [HttpPost]
+        public IActionResult Create(Pull pull)
+        {
+            var newPull = _pullRepository.Add(pull);
+            return RedirectToAction("Pull", new {id = newPull.Id});
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
