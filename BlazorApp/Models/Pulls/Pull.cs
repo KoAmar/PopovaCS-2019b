@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MVC_v2.Models.Pulls
+namespace BlazorApp.Models.Pulls
 {
     public class Pull
     {

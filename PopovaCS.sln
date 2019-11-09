@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContosoCrafts.WebSite", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{438ECDD1-77F9-4B7E-B174-C184EA335A5B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{615D5E23-7D2E-4954-8CC2-7B4E58FEA125}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{438ECDD1-77F9-4B7E-B174-C184EA335A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{438ECDD1-77F9-4B7E-B174-C184EA335A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{438ECDD1-77F9-4B7E-B174-C184EA335A5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615D5E23-7D2E-4954-8CC2-7B4E58FEA125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615D5E23-7D2E-4954-8CC2-7B4E58FEA125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615D5E23-7D2E-4954-8CC2-7B4E58FEA125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615D5E23-7D2E-4954-8CC2-7B4E58FEA125}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

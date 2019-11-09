@@ -1,8 +1,9 @@
-﻿using System;
+﻿using BlazorApp.Models.Pulls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MVC_v2.Models.Pulls
+namespace BlazorApp.Models.Pulls
 {
     public class MockPullRepository : IPullRepository
     {
