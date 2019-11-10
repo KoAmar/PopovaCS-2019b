@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BlazorApp.Models.Pulls
+namespace BlazorApp.Data
 {
     public class MockPullRepository : IPullRepository
     {
@@ -15,7 +15,7 @@ namespace BlazorApp.Models.Pulls
             {
                 new Pull{
                     Id = 0,
-                    Name = "First Pull", 
+                    Name = "First Pull",
                     CreatorLogin = "Pavlik",
                     CreationDate = default,
                     Questions = new List<Question>(){
@@ -38,7 +38,7 @@ namespace BlazorApp.Models.Pulls
                 },
                 new Pull(){
                     Id = 1,
-                    Name = "Second Pull", 
+                    Name = "Second Pull",
                     CreatorLogin = "KoAmar",
                     CreationDate = default,
                     Questions = new List<Question>(){
@@ -64,7 +64,7 @@ namespace BlazorApp.Models.Pulls
 
         public Pull GetPull(int id)
         {
-//            if(_pulls.)
+            //            if(_pulls.)
             return _pulls[id];
         }
 

@@ -1,0 +1,24 @@
+[
+  {
+    "Id": 0,
+    "Name": "First Pull",
+    "CreatorLogin": "Pavlik",
+    "CreationDate": null,
+    "Questions": {
+      "PossibleAnswers": null,
+      "SoleAnswer": false,
+      "Text": null
+    }
+  },
+  {
+    "Id": 1,
+    "Name": "First Pull",
+    "CreatorLogin": "Pavlik",
+    "CreationDate": null,
+    "Questions": {
+      "PossibleAnswers": null,
+      "SoleAnswer": false,
+      "Text": null
+    }
+  }
+]
