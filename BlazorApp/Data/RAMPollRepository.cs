@@ -20,14 +20,14 @@ namespace BlazorApp.Data
                     CreationDate = default,
                     Questions = new List<Question>(){
                         new Question{
-                            QuestionText = null,
-                            SoleAnswer = false,
-                            PossibleAnswers = null
-                        },
-                        new Question{
-                            QuestionText = null,
-                            SoleAnswer = false,
-                            PossibleAnswers = null
+                            QuestionText = "Is this the real life?",
+                            SoleAnswer = true,
+                            PossibleAnswers = new List<string>()
+                            {
+                                "Is this just fantasy?",
+                                "I'm just a poor boy",
+                                "I don't wanna die"
+                            }
                         },
                         new Question{
                             QuestionText = null,
