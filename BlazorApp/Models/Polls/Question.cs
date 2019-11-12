@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BlazorApp.Models.Pulls
+namespace BlazorApp.Models.Polls
 {
     public class Question
     {

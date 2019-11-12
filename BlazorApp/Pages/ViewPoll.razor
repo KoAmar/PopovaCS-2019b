@@ -1,0 +1,30 @@
+﻿@page "/ViewPoll/{Id:int}"
+@using BlazorApp.Models.Polls
+@using BlazorApp.Data
+
+@inject IPollRepository RAMPollRepository
+
+<div class="card text-center">
+    <dif class="row">
+        <div class="card-body">
+            <h5 class="card-title">@CurrentPoll.Id. @CurrentPoll.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@CurrentPoll.CreatorLogin</h6>
+            <p class="card-text">@CurrentPoll.CreationDate</p>
+            <a asp-controller="Home" asp-action="Poll" asp-route-id="@CurrentPoll.Id" class="card-link">Открыть</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </dif>
+</div>
+
+@code{
+    [Parameter]
+    public int Id { get; set; }
+
+    public Poll CurrentPoll { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        CurrentPoll = RAMPollRepository.GetPoll(Id);
+    }
+}

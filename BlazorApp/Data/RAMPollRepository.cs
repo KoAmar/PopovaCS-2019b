@@ -1,21 +1,21 @@
-﻿using BlazorApp.Models.Pulls;
+﻿using BlazorApp.Models.Polls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BlazorApp.Data
 {
-    public class MockPullRepository : IPullRepository
+    public class RAMPollRepository : IPollRepository
     {
-        private readonly List<Pull> _pulls;
+        private readonly List<Poll> _pulls;
 
-        public MockPullRepository()
+        public RAMPollRepository()
         {
-            _pulls = new List<Pull>()
+            _pulls = new List<Poll>()
             {
-                new Pull{
+                new Poll{
                     Id = 0,
-                    Name = "First Pull",
+                    Name = "First Poll",
                     CreatorLogin = "Pavlik",
                     CreationDate = default,
                     Questions = new List<Question>(){
@@ -36,9 +36,9 @@ namespace BlazorApp.Data
                         }
                     }
                 },
-                new Pull(){
+                new Poll(){
                     Id = 1,
-                    Name = "Second Pull",
+                    Name = "Second Poll",
                     CreatorLogin = "KoAmar",
                     CreationDate = default,
                     Questions = new List<Question>(){
@@ -62,18 +62,17 @@ namespace BlazorApp.Data
             };
         }
 
-        public Pull GetPull(int id)
+        public Poll GetPoll(int id)
         {
-            //            if(_pulls.)
             return _pulls[id];
         }
 
-        public IList<Pull> GetPulls()
+        public IList<Poll> GetPolls()
         {
             return _pulls;
         }
 
-        public Pull Add(Pull pull)
+        public Poll Add(Poll pull)
         {
             pull.Id = _pulls.Max(e => e.Id) + 1;
             pull.CreatorLogin = "default";

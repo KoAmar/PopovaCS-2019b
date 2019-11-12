@@ -27,7 +27,7 @@ namespace BlazorApp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<IPollRepository,RAMPollRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,70 +1,35 @@
 ﻿@page "/"
-@using BlazorApp.Models
+@using BlazorApp.Models.Polls
+@using BlazorApp.Data
 
-<div class="container">
-    <div class="row">
-        <div class="col-2" />
-        <div class="col-8 text-center">
-            <div class="input-group input-group-lg">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">New User</span>
-                </div>
-                <input type="text" class="form-control"
-                       placeholder="Enter your text here"
-                       @bind-value="Text" @bind-value:event="oninput" @onkeypress="KeyPress" />
-                <div class="input-group-append">
-                    <button class="btn btn-secondary @buttonDisabled" @onclick="CreateNewItem">Add (Enter)</button>
+@inject IPollRepository PollRepository
+
+<dif class="row">
+    @foreach (var pull in Polls)
+    {
+        <dif class="col-2"></dif>
+        <dif class="col-8">
+            <div class="card m-1 pl-5">
+                <div class="card-body">
+                    <h5 class="card-title">@pull.Id.  @pull.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@pull.CreatorLogin</h6>
+                    <p class="card-text">@pull.CreationDate</p>
+                    <a href=@($"/ViewPoll/{pull.Id}") class="card-link">Открыть</a>
+                    <a href="#" class="card-link">Another link</a>
                 </div>
             </div>
+        </dif>
+        <dif class="col-2"></dif>
+    }
+</dif>
 
-            <ul class="list-group m-1 border-dark">
-                @foreach (User user in Users)
-                {
-                    <li class="list-group-item">@user.Login @user.Email @user.Password</li>
-                }
-            </ul>
-        </div>
-        <div class="col-2" />
-    </div>
-</div>
 
 
 @code{
-    string Text {
-        get; set;
-    }
+    public IList<Poll> Polls { get; set; }
 
-    string buttonDisabled => Text != null && Text.Length > 0 ? null : "disabled";
-
-    List<User> Users = new List<User>();
-    private User NewUser = new User();
-
-    void IncrementCount()
+    protected override void OnInitialized()
     {
-        NewUser.Login = NewUser.Login ?? "KOAMAR";
-        NewUser.Email = NewUser.Email ?? "pavlik@mail.com";
-        NewUser.Password = NewUser.Password ?? "Pavlik";
-
-        Users.Add(NewUser);
-        Debug.WriteLine(NewUser.ToString());
-
-        NewUser = new User();
+        Polls = PollRepository.GetPolls();
     }
-
-    void KeyPress(KeyboardEventArgs e)
-    {
-        if (e.Key == "Enter")
-        {
-            CreateNewItem();
-        }
-    }
-    void CreateNewItem()
-    {
-        if (Users != null)
-        {
-            Users.Add(new User { StudentId =  1, Email = "pavlik@mail.com", Login = "KOAMAR", Password = "Pavlik"});
-            StateHasChanged();
-        }
-    }
-
 }
