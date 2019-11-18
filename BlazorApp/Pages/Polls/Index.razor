@@ -9,10 +9,15 @@
 {
 
     <div class="card mb-2">
-        <dif class="card-header">№@pull.Id</dif>
+        <dif class="card-header">
+            <div class="row  justify-content-between pl-3 pr-3">
+                <h3>@pull.Name</h3>
+                <p class="text-muted">@pull.CreatorLogin</p>
+            </div>
+        </dif>
         <div class="card-body pl-5">
-            <h5 class="card-title">@pull.Name</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@pull.CreatorLogin</h6>
+            <h5 class="card-title">@pull.Description</h5>
+            <p class="card-text text-center"><small class="text-muted">№@(pull.Id+1)</small></p>
             <a href=@($"/ViewPoll/{pull.Id}") class="card-link">Открыть</a>
             <a href="#" class="card-link">Another link</a>
         </div>

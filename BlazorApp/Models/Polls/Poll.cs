@@ -10,13 +10,15 @@ namespace BlazorApp.Models.Polls
         {
             Id = 0;
             Name = "";
+            Description = "";
             CreatorLogin = "";
-            CreationDate = DateTime.Now;
+            CreationDate = default;
             Questions = new List<Question>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public string CreatorLogin { get; set; }
         public DateTime CreationDate { get; set; }
 

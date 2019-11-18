@@ -30,6 +30,7 @@ namespace BlazorApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<IPollRepository, MockPollRepository>();
+            services.AddSingleton<IPollResultsRepository, MockPollResultsRepository>();
             services.AddSingleton<IUserRepository, MockUserRepository>();
             services.AddSingleton<CurrentUser>();
         }

@@ -5,35 +5,55 @@
 @inject IPollRepository PollRepository
 @inject NavigationManager NavigationManager
 
-<div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" class="form-control" @bind-value="NewPoll.Name" />
-</div>
-<div class="form-group">
-    <label for="source">Source:</label>
-    <input type="text" class="form-control" @bind-value="NewPoll.CreatorLogin" />
-</div>
-@*<div class="form-group">
-        <label for="coolfactor">Cool Factor:</label>
+<div class="jumbotron p-4 mb-4">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" @bind-value="NewPoll.Name" />
+    </div>
+    <div class="form-group">
+        <label for="source">Description:</label>
+        <textarea class="form-control" @bind="NewPoll.Description" />
+    </div>
 
-        <InputSelect Class="form-control" id="coolfactor" @bind-Value="NewPoll.CoolFactor">
-            @foreach (var f in Enum.GetValues(typeof(CoolFactor)))
-            {
-                <option value="@f">@f.ToString()</option>
-            }
-        </InputSelect>
-    </div>*@
-@*@foreach(var question in NewPoll.Questions)
+    <div class="row justify-content-around">
+        <button class="btn btn-success" @onclick="ValidSubmit">Save Changes</button>
+        <button class="btn btn-info" @onclick="AddQuestion">Add Question</button>
+        <button class="btn btn-danger" @onclick="BackToList">Cancel</button>
+    </div>
+</div>
+
+@foreach (var question in NewPoll.Questions)
 {
-    <div class="h1">@question.Text</div>
-    <div class="h1">Question   ??</div>
-}*@
-<button class="btn btn-secondary" @onclick="NewQuestion">Add Question</button>
-<button class="btn btn-primary" @onclick="ValidSubmit">Save Changes</button>
-<button class="btn btn-secondary" @onclick="BackToList">Cancel</button>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-subtitle">@(NewPoll.Questions.IndexOf(question) + 1). @question.Text</h5>
+            <div class="list-group">
+                @foreach (var answer in question.PossibleAnswers)
+                {
+                    <a class="list-group-item list-group-item-action">@answer</a>
+                }
+            </div>
+        </div>
+        <div class="card-footer">
+            @*<div class="btn-info" @onclick="(question.PossibleAnswers.Add(_ansSample))"></div>*@
+        </div>
+    </div>
+}
 
+@if (NewPoll.Questions.Count > 6)
+{
+    <div class="jumbotron p-4 my-4">
+        <div class="row justify-content-around">
+            <button class="btn btn-success" @onclick="ValidSubmit">Save Changes</button>
+            <button class="btn btn-info" @onclick="AddQuestion">Add Question</button>
+            <button class="btn btn-danger" @onclick="BackToList">Cancel</button>
+        </div>
+    </div>
+}
 
 @code {
+    private const string _ansSample = "...";
+
     public Poll NewPoll { get; set; }
 
     protected override void OnInitialized()
@@ -41,10 +61,15 @@
         NewPoll = new Poll();
     }
 
-    void NewQuestion()
+    void AddQuestion()
     {
-        NewPoll.Questions.Add(new Question());
+        NewPoll.Questions.Add(new Question("Example", true, new List<string> { "1", "2", "3" }));
     }
+
+    //EventCallback AddAnswer(Question question)
+    //{
+    //    return question.PossibleAnswers.Add("...");
+    //}
 
     void BackToList()
     {
@@ -53,7 +78,6 @@
 
     void ValidSubmit()
     {
-        //DataLayer.SubmitChanges(Trophy);
         PollRepository.Add(NewPoll);
         BackToList();
     }
