@@ -1,0 +1,45 @@
+﻿@page "/ViewPoll/{Id:int}"
+@using BlazorApp.Models.Polls
+@using BlazorApp.Data.Polls
+
+@inject IPollRepository RAMPollRepository
+
+<div class="card">
+    <dif class="card-header">№@CurrentPoll.Id</dif>
+    <div class="card-body pl-5">
+        <h5 class="card-title">@CurrentPoll.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@CurrentPoll.CreatorLogin</h6>
+        <p class="card-text">@CurrentPoll.CreationDate</p>
+        @foreach (var question in CurrentPoll.Questions)
+        {
+            <div class="card mt-1 mb-1">
+                <div class="card-body">
+                    <h5 class="card-title">@CurrentPoll.Questions.IndexOf(question). @question.Text</h5>
+                    <div class="list-group">
+                        @foreach (var answer in question.PossibleAnswers)
+                        {
+                            <a class="list-group-item list-group-item-action">@answer</a>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="row justify-content-between mt-5 pl-2 pr-2">
+                <button class="btn btn-success">Save Changes</button>
+                <button class="btn btn-danger">Cancel</button>
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public int Id { get; set; }
+
+    public Poll CurrentPoll { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CurrentPoll = RAMPollRepository.GetPoll(Id);
+    }
+}

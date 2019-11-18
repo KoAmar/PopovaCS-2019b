@@ -31,6 +31,7 @@ namespace BlazorApp
             services.AddServerSideBlazor();
             services.AddSingleton<IPollRepository, MockPollRepository>();
             services.AddSingleton<IUserRepository, MockUserRepository>();
+            services.AddSingleton<CurrentUser>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

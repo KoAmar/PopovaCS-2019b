@@ -15,7 +15,7 @@ namespace BlazorApp.Models.Authorization
             Admin
         }
 
-        public int StudentId { get; set; }
+        public int Id { get; set; }
         public string Login { get; set; }
         public string Email { get; set; }
         public Roles Role { get; set; }

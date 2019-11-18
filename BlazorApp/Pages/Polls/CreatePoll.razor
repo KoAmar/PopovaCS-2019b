@@ -23,8 +23,14 @@
             }
         </InputSelect>
     </div>*@
+@*@foreach(var question in NewPoll.Questions)
+{
+    <div class="h1">@question.Text</div>
+    <div class="h1">Question   ??</div>
+}*@
+<button class="btn btn-secondary" @onclick="NewQuestion">Add Question</button>
 <button class="btn btn-primary" @onclick="ValidSubmit">Save Changes</button>
-<button class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+<button class="btn btn-secondary" @onclick="BackToList">Cancel</button>
 
 
 @code {
@@ -34,14 +40,15 @@
     {
         NewPoll = new Poll();
     }
+
+    void NewQuestion()
+    {
+        NewPoll.Questions.Add(new Question());
+    }
+
     void BackToList()
     {
         NavigationManager.NavigateTo("/");
-    }
-
-    void Cancel()
-    {
-        BackToList();
     }
 
     void ValidSubmit()

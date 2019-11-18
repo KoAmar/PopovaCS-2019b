@@ -21,7 +21,7 @@ namespace BlazorApp.Data.Polls
                     CreationDate = default,
                     Questions = new List<Question>(){
                         new Question{
-                            QuestionText = "Is this the real life?",
+                            Text = "Is this the real life?",
                             SoleAnswer = true,
                             PossibleAnswers = new List<string>()
                             {
@@ -30,11 +30,8 @@ namespace BlazorApp.Data.Polls
                                 "I don't wanna die"
                             }
                         },
-                        new Question{
-                            QuestionText = null,
-                            SoleAnswer = false,
-                            PossibleAnswers = null
-                        }
+                        new Question(),
+                        new Question()
                     }
                 },
                 new Poll(){
@@ -44,17 +41,17 @@ namespace BlazorApp.Data.Polls
                     CreationDate = default,
                     Questions = new List<Question>(){
                         new Question{
-                            QuestionText = null,
+                            Text = null,
                             SoleAnswer = false,
                             PossibleAnswers = null
                         },
                         new Question{
-                            QuestionText = null,
+                            Text = null,
                             SoleAnswer = false,
                             PossibleAnswers = null
                         },
                         new Question{
-                            QuestionText = null,
+                            Text = null,
                             SoleAnswer = false,
                             PossibleAnswers = null
                         }
