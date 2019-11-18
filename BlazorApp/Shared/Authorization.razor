@@ -1,0 +1,24 @@
+﻿@using Models.Authorization
+
+<div class="top-row px-4">
+    @if (_user.Role == User.Roles.UnAuthorized)
+    {
+        <a href="/Register">Register</a>
+        <a href="/Login">Login</a>
+    }
+    else
+    {
+        <a href="/">Log out</a>
+    }
+</div>
+
+@code {
+    private User _user = new User()
+    {
+        StudentId = -1,
+        Email = "",
+        Login = "",
+        PasswordHash = "",
+        Role = User.Roles.UnAuthorized
+    };
+}

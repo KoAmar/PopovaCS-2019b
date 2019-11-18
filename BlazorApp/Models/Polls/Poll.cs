@@ -7,9 +7,7 @@ namespace BlazorApp.Models.Polls
     public class Poll
     {
         public int Id { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a name")]
         public string CreatorLogin { get; set; }
         public DateTime CreationDate { get; set; }
 

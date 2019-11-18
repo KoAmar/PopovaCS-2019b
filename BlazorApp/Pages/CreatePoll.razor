@@ -1,38 +1,31 @@
 ﻿@page "/CreatePoll"
-@using Data
+@using Data.Polls
 @using Models.Polls
 
 @inject IPollRepository PollRepository
 @inject NavigationManager NavigationManager
 
-<EditForm Model="@NewPoll" OnValidSubmit="@ValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" @bind-value="NewPoll.Name" />
+</div>
+<div class="form-group">
+    <label for="source">Source:</label>
+    <input type="text" class="form-control" @bind-value="NewPoll.CreatorLogin" />
+</div>
+@*<div class="form-group">
+        <label for="coolfactor">Cool Factor:</label>
 
-    <div class="form-group">
-        <label for="name">Name:</label>
-        <InputText Class="form-control" id="name" @bind-Value="NewPoll.Name" />
-        <ValidationMessage For="@(() => NewPoll.Name)" />
-    </div>
-    <div class="form-group">
-        <label for="source">Source:</label>
-        <InputText Class="form-control" id="source" @bind-Value="NewPoll.CreatorLogin" />
-        <ValidationMessage For="@(() => NewPoll.CreatorLogin)" />
-    </div>
-    @*<div class="form-group">
-            <label for="coolfactor">Cool Factor:</label>
+        <InputSelect Class="form-control" id="coolfactor" @bind-Value="NewPoll.CoolFactor">
+            @foreach (var f in Enum.GetValues(typeof(CoolFactor)))
+            {
+                <option value="@f">@f.ToString()</option>
+            }
+        </InputSelect>
+    </div>*@
+<button class="btn btn-primary" @onclick="ValidSubmit">Save Changes</button>
+<button class="btn btn-secondary" @onclick="Cancel">Cancel</button>
 
-            <InputSelect Class="form-control" id="coolfactor" @bind-Value="NewPoll.CoolFactor">
-                @foreach (var f in Enum.GetValues(typeof(CoolFactor)))
-                {
-                    <option value="@f">@f.ToString()</option>
-                }
-            </InputSelect>
-        </div>*@
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-    <button class="btn btn-secondary" @onclick="Cancel">Cancel</button>
-    
-</EditForm>
 
 @code {
     public Poll NewPoll { get; set; }
@@ -57,5 +50,4 @@
         PollRepository.Add(NewPoll);
         BackToList();
     }
-
 }

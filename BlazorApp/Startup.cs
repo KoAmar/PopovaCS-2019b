@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorApp.Data;
+using BlazorApp.Data.Polls;
+using BlazorApp.Data.Users;
 
 namespace BlazorApp
 {
@@ -27,7 +29,8 @@ namespace BlazorApp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<IPollRepository,RAMPollRepository>();
+            services.AddSingleton<IPollRepository, MockPollRepository>();
+            services.AddSingleton<IUserRepository, MockUserRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
