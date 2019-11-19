@@ -7,6 +7,19 @@ namespace BlazorApp.Models.Authorization
 {
     public class User
     {
+        public User()
+        {
+        }
+
+        public User(int id, string login, string email, string passwordHash)
+        {
+            Id = id;
+            Login = login;
+            Email = email;
+            Role = Roles.UnAuthorized;
+            PasswordHash = passwordHash;
+        }
+
         public enum Roles
         {
             UnAuthorized,

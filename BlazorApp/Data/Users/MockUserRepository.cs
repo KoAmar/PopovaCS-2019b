@@ -89,7 +89,7 @@ namespace BlazorApp.Data.Users
             {
                 if (IsValidLogin(login))
                 {
-                    return new User();
+                    return new User(_users.Max(e => e.Id) + 1, login, email, password);
                 }
             }
             return null;
