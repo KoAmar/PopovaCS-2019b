@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlazorApp.Data.Users
@@ -37,14 +38,42 @@ namespace BlazorApp.Data.Users
             };
         }
 
-        public bool IsValid(string email, string password)
+        private User ContainEmail(string email)
         {
-            throw new NotImplementedException();
+            foreach (var user in _users)
+            {
+                if (user.Email == email) { return user; }
+            }
+            return null;
+        }
+
+        private User IsValid(string email, string password)
+        {
+            var user = ContainEmail(email);
+            if (user != null)
+            {
+                if (user.PasswordHash == password)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
 
         public User Login(string email, string password)
         {
-            throw new NotImplementedException();
+            string emailPattern = @"\w{30}@\w{30}";
+            string passwordPattern = @"\w{6-64}";
+
+            if (Regex.IsMatch(email, emailPattern, RegexOptions.IgnoreCase) & Regex.IsMatch(password, passwordPattern, RegexOptions.IgnoreCase))
+            {
+                var user = IsValid(email, password);
+                if (user != null)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
 
         public User Register(string email, string login, string password)
