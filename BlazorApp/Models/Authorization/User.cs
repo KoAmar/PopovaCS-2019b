@@ -20,5 +20,21 @@ namespace BlazorApp.Models.Authorization
         public string Email { get; set; }
         public Roles Role { get; set; }
         public string PasswordHash { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is User)
+            {
+                var that = obj as User;
+                return Id == that.Id && Login == that.Login && Email == that.Email && Role == that.Role && PasswordHash == that.PasswordHash;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Login, Email, Role, PasswordHash);
+        }
     }
 }

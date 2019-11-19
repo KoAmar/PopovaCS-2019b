@@ -1,6 +1,7 @@
 ﻿using BlazorApp.Models.Authorization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -25,14 +26,14 @@ namespace BlazorApp.Data.Users
                     Id = 1,
                     Email = "pavlik@mail.com",
                     Login = "Pavlik",
-                    PasswordHash = "1111",
+                    PasswordHash = "111111",
                     Role = User.Roles.User
                 },
                 new User{
                     Id = 2,
                     Email = "pa1318vel@gmail.com",
                     Login = "KoAmar",
-                    PasswordHash = "1111",
+                    PasswordHash = "111123",
                     Role = User.Roles.Admin
                 },
             };
@@ -60,12 +61,17 @@ namespace BlazorApp.Data.Users
             return null;
         }
 
+        private bool IsValidLogin(string login)
+        {
+            string loginPattern = @"\w{3,20}";
+            return Regex.IsMatch(login, loginPattern);
+        }
+
         public User Login(string email, string password)
         {
-            string emailPattern = @"\w{30}@\w{30}";
-            string passwordPattern = @"\w{6-64}";
-
-            if (Regex.IsMatch(email, emailPattern, RegexOptions.IgnoreCase) & Regex.IsMatch(password, passwordPattern, RegexOptions.IgnoreCase))
+            string emailPattern = @"\w{1,30}@\w{1,30}\.\w{1,15}";
+            string passwordPattern = @"\w{6,64}";
+            if (Regex.IsMatch(email, emailPattern) && Regex.IsMatch(password, passwordPattern))
             {
                 var user = IsValid(email, password);
                 if (user != null)
@@ -78,7 +84,15 @@ namespace BlazorApp.Data.Users
 
         public User Register(string email, string login, string password)
         {
-            throw new NotImplementedException();
+            var user = ContainEmail(email);
+            if (user == null)
+            {
+                if (IsValidLogin(login))
+                {
+                    return new User();
+                }
+            }
+            return null;
         }
     }
 }
