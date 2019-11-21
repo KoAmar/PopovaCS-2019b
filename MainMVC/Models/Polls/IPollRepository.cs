@@ -6,6 +6,6 @@ namespace MVC_v2.Models.Polls
     {
         Poll GetPoll(int id);
         IList<Poll> GetPolls();
-        Poll Add(Poll poll);
-    }    
+        Poll Add(Poll pull);
+    }
 }
