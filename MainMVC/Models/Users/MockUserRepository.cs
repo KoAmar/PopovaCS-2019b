@@ -1,12 +1,11 @@
-﻿using BlazorApp.Models.Authorization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BlazorApp.Data.Users
+namespace MVC_v2.Models.Users
 {
     public class MockUserRepository : IUserRepository
     {
@@ -88,7 +87,7 @@ namespace BlazorApp.Data.Users
             if (user == null)
             {
                 if (IsValidLogin(login))
-                {   
+                {
                     var newUser = new User(_users.Max(e => e.Id) + 1, login, email, password);
                     _users.Add(newUser);
                     return newUser;

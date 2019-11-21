@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using BlazorApp.Models.Polls;
 
-namespace BlazorApp.Data.Polls
+namespace MVC_v2.Models.Polls
 {
     public interface IPollRepository
     {
         IList<Poll> GetPolls();
         Poll GetPoll(int id);
-        Poll Add(Poll pull);
+        Poll Add(Poll poll);
     }
 }
