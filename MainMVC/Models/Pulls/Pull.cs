@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MVC_v2.Models.Pulls
+namespace MVC_v2.Models.Polls
 {
-    public class Pull
+    public class Poll
     {
         public int Id { get; set; }
         public string Name { get; set; }

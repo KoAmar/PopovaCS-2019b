@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MVC_v2.Models.Pulls
+namespace MVC_v2.Models.Polls
 {
     public class Question
     {

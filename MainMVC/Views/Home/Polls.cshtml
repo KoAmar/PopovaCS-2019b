@@ -1,0 +1,23 @@
+﻿@model IList<Poll>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<dif class="row">
+    @foreach (var poll in Model)
+    {
+        <dif class="col-2"></dif>
+        <dif class="col-8">
+            <div class="card m-1 pl-5">
+                <div class="card-body">
+                    <h5 class="card-title">@poll.Id.  @poll.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@poll.CreatorLogin</h6>
+                    <p class="card-text">@poll.CreationDate</p>
+                    <a asp-controller="Home" asp-action="Poll" asp-route-id="@poll.Id" class="card-link">Открыть</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </dif>
+        <dif class="col-2"></dif>
+    }
+</dif>
