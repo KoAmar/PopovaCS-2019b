@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace MVC_v2.Models.Polls
+namespace MVC_v2.Models.Polls.Results
 {
     public class QuestionResult
     {

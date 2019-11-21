@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVC_v2.Models.Polls
+namespace MVC_v2.Models.Polls.Results
 {
     public class MockPollResultsRepository : IPollResultsRepository
     {

@@ -3,8 +3,28 @@
 @{
     ViewData["Title"] = "Poll";
 }
+<div class="jumbotron">
+    <h3>@Model.Name</h3>
+    <h6>@Model.Description</h6>
+    <p><em>Created by @Model.CreatorLogin on @Model.CreationDate</em></p>
+</div>
 
-<div class="card text-center">
+@foreach (var question in Model.Questions)
+{
+    <div class="card mt-3 mb-1">
+        <div class="card-body">
+            <h5 class="card-title">@(Model.Questions.IndexOf(question) + 1). @question.Text</h5>
+            <div class="list-group">
+                @foreach (var answer in question.PossibleAnswers)
+                {
+                    <a class="list-group-item list-group-item-action">@answer</a>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+@*<div class="card text-center">
     <dif class="row">
         <div class="card-body">
             <h5 class="card-title">@Model.Id. @Model.Name</h5>
@@ -14,4 +34,4 @@
             <a href="#" class="card-link">Another link</a>
         </div>
     </dif>
-</div>
+</div>*@
