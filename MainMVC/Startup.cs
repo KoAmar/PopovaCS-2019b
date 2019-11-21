@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MVC_v2.Models.Polls;
+using MVC_v2.Models.Pulls;
 
 namespace MVC_v2
 {
@@ -25,7 +25,7 @@ namespace MVC_v2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IPollRepository, MockPollRepository>();
+            services.AddSingleton<IPullRepository, MockPullRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +54,7 @@ namespace MVC_v2
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Polls}/{id?}");
+                    pattern: "{controller=Home}/{action=Pulls}/{id?}");
             });
         }
     }

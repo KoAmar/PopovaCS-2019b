@@ -2,30 +2,30 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC_v2.Models;
-using MVC_v2.Models.Polls;
+using MVC_v2.Models.Pulls;
 
 namespace MVC_v2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IPollRepository _pollRepository;
+        private readonly IPullRepository _pullRepository;
 
-        public HomeController(ILogger<HomeController> logger, IPollRepository pollRepository)
+        public HomeController(ILogger<HomeController> logger, IPullRepository pullRepository)
         {
-            _pollRepository = pollRepository;
+            _pullRepository = pullRepository;
             _logger = logger;
         }
 
-        public IActionResult Polls()
+        public IActionResult Pulls()
         {
-            var model = _pollRepository.GetPolls();
+            var model = _pullRepository.GetPulls();
             return View(model);
         }
 
-        public IActionResult Poll(int id)
+        public IActionResult Pull(int id)
         {
-            var model = _pollRepository.GetPoll(id);
+            var model = _pullRepository.GetPull(id);
             return View(model);
         }
 
@@ -41,10 +41,10 @@ namespace MVC_v2.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create(Poll poll)
+        public IActionResult Create(Pull pull)
         {
-            var newPoll = _pollRepository.Add(poll);
-            return RedirectToAction("Poll", new {id = newPoll.Id});
+            var newPull = _pullRepository.Add(pull);
+            return RedirectToAction("Pull", new {id = newPull.Id});
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

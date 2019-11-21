@@ -5,8 +5,8 @@ namespace BlazorApp.Data.Polls
 {
     public interface IPollRepository
     {
-        IList<Poll> GetPolls();
         Poll GetPoll(int id);
+        IList<Poll> GetPolls();
         Poll Add(Poll pull);
     }
 }

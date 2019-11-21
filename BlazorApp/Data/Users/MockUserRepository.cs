@@ -10,7 +10,7 @@ namespace BlazorApp.Data.Users
 {
     public class MockUserRepository : IUserRepository
     {
-        protected readonly List<User> _users;
+        private readonly List<User> _users;
 
         public MockUserRepository()
         {
@@ -88,10 +88,8 @@ namespace BlazorApp.Data.Users
             if (user == null)
             {
                 if (IsValidLogin(login))
-                {   
-                    var newUser = new User(_users.Max(e => e.Id) + 1, login, email, password);
-                    _users.Add(newUser);
-                    return newUser;
+                {
+                    return new User(_users.Max(e => e.Id) + 1, login, email, password);
                 }
             }
             return null;
