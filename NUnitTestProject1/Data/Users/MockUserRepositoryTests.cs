@@ -1,5 +1,4 @@
-using BlazorApp.Data.Users;
-using BlazorApp.Models.Authorization;
+using MainMVC.Models.Users;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

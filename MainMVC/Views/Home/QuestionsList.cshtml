@@ -11,9 +11,19 @@
             <h6 class="card-title">
                 @(Model.IndexOf(question) + 1). @question.Text
             </h6>
-            <p>AnswersCount: @question.AnswersCount</p>
-            <a @Html.ActionLink("Редактировать кол-вопросов", "EditNumberOfAnswers", "Home", new { questionId = question.Id }) class="card-link">Change number of answers</a>
-            <a @Html.ActionLink("Редактировать вовопросы", "EditNumberOfAnswers", "Home", new { questionId = question.Id }) class="card-link">Change number of answers</a>
+            <p class="ml-1">AnswersCount: @question.AnswersCount</p>
+            <ul class="list-group">
+                @foreach (var answer in question.PossibleAnswers)
+                {
+                    <li class="list-group-item">@answer.Text</li>
+                }
+            </ul>
+            <div class="row justify-content-around">
+                <p class="text-muted">Question Id: @question.Id</p>
+                @Html.ActionLink("Редактировать кол-вопросов", "EditNumberOfAnswers", "Home", new { questionId = question.Id })
+                @Html.ActionLink("Редактировать вопросы", "EditNumberOfAnswers", "Home", new { questionId = question.Id })
+            </div>
+
         </div>
     </div>
 }

@@ -7,9 +7,9 @@ namespace MainMVC.Models.Polls
 {
     public class Answer
     {
-        public Answer(int Id, string text = "noAnswerText", int answerSelectedCounter = 0)
+        public Answer(string text = "noAnswerText", int answerSelectedCounter = 0)
         {
-            this.Id = Id;
+            Id = 0;
             Text = text;
             AnswerSelectedCounter = answerSelectedCounter;
         }

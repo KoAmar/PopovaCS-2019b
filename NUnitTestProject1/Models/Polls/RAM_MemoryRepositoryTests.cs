@@ -1,4 +1,5 @@
 using MainMVC.Models.Polls;
+using MainMVC.Utilities;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -65,11 +66,11 @@ namespace NUnitTestProject1.Models.Polls
             var rAMMemoryRepository = CreateRAMMemoryRepository();
 
             // Act
-            var result = rAMMemoryRepository.MaxQuestionId(
+            var result = UtilForPoll.MaxQuestionId(
                 rAMMemoryRepository.GetPolls().ToList());
 
             // Assert
-            Assert.AreEqual(3, result);
+            Assert.AreEqual(0, result);
         }
 
         [Test]
@@ -79,11 +80,11 @@ namespace NUnitTestProject1.Models.Polls
             var rAMMemoryRepository = CreateRAMMemoryRepository();
 
             // Act
-            var result = rAMMemoryRepository.MaxAnswerId(
+            var result = UtilForPoll.MaxAnswerId(
                 rAMMemoryRepository.GetPolls().ToList());
 
             // Assert
-            Assert.AreEqual(9,result);
+            Assert.AreEqual(0,result);
         }
 
         [Test]

@@ -49,7 +49,7 @@ namespace MainMVC.Controllers
             {
                 for (int num = 1; num < poll.QuestionsCount + 1; num++)
                 {
-                    poll.Questions.Add(new Question(num));
+                    poll.Questions.Add(new Question(){Id = num });
                 }
                 var newPoll = _pollRepository.Add(poll);
                 return RedirectToAction("QuestionsList", new { pollId = newPoll.Id });
@@ -80,10 +80,7 @@ namespace MainMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                for (int num = 1; num < question.AnswersCount + 1; num++)
-                {
-                    question.PossibleAnswers.Add(new Answer(num));
-                }
+                question.
                 _presentlyEditingQuestion = question;
 
                 return RedirectToAction("PollsList");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainMVC.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,25 +22,27 @@ namespace MainMVC.Models.Polls
                     CreationDate = default,
                     QuestionsCount = 2,
                     Questions = new List<Question>(){
-                        new Question(1){
+                        new Question(){
+                            Id = 1,
                             Text = "Is this the real life?",
                             SoleAnswer = true,
                             AnswersCount = 3,
                             PossibleAnswers = new List<Answer>()
                             {
-                                new Answer(1,"Is this just fantasy?"),
-                                new Answer(2,"I'm just a poor boy"),
-                                new Answer(3,"I don't wanna die")
+                                new Answer("Is this just fantasy?"){Id = 1 },
+                                new Answer("I'm just a poor boy"){Id = 2 },
+                                new Answer("I don't wanna die"){Id = 3 }
                             }
                         },
-                        new Question(2){
+                        new Question(){
+                            Id = 2,
                             Text = "Is this the real life?",
                             SoleAnswer = true,
-                            AnswersCount = 3,
+                            AnswersCount = 2,
                             PossibleAnswers = new List<Answer>()
                             {
-                                new Answer(4,"Is this just fantasy?"),
-                                new Answer(5,"I don't wanna die")
+                                new Answer("Is this just fantasy?"){Id = 4 },
+                                new Answer("I'm just a poor boy"){Id = 5 }
                             }
                         }
 
@@ -53,16 +56,17 @@ namespace MainMVC.Models.Polls
                     CreationDate = default,
                     QuestionsCount = 1,
                     Questions = new List<Question>(){
-                        new Question(3){
+                        new Question(){
+                            Id = 3,
                             Text = "Is this the real life?",
                             SoleAnswer = true,
-                            AnswersCount = 3,
+                            AnswersCount = 4,
                             PossibleAnswers = new List<Answer>()
                             {
-                                new Answer(6,"Is this just fantasy?"),
-                                new Answer(7,"I'm just a poor boy"),
-                                new Answer(8,"I don't wanna die"),
-                                new Answer(9,"I don't wanna die")
+                                new Answer("Is this just fantasy?"){Id = 6 },
+                                new Answer("I'm just a poor boy"){Id = 7 },
+                                new Answer("I don't wanna die"){Id = 8 },
+                                new Answer("I don't wanna die"){Id = 9 }
                             }
                         }
                     },
@@ -85,44 +89,13 @@ namespace MainMVC.Models.Polls
             var Id = _polls.Max(e => e.Id) + 1;
             poll.Id = Id;
 
-            var maxQuestionId = MaxQuestionId(_polls);
-            var maxAnswerId = MaxAnswerId(_polls);
+            var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
+            var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
 
             _polls.Add(poll);
             return poll;
         }
 
-        public int MaxQuestionId(List<Poll> polls)
-        {
-            int result = int.MinValue;
-            foreach (var poll in polls)
-            {
-                foreach (var question in poll.Questions)
-                {
-                    int id = question.Id;
-                    if (id > result) { result = id; }
-                }
-            }
-            return result;
-        }
-
-        public int MaxAnswerId(List<Poll> polls)
-        {
-            int result = int.MinValue;
-            foreach (var poll in polls)
-            {
-                foreach (var question in poll.Questions)
-                {
-                    foreach (var answer in question.PossibleAnswers)
-                    {
-                        //стояло question, вместо answer 
-                        int id = answer.Id;
-                        if (id > result) { result = id; }
-                    }
-                }
-            }
-            return result;
-        }
 
         public Poll Update(Poll pollChanges)
         {
@@ -146,6 +119,48 @@ namespace MainMVC.Models.Polls
             }
             return poll;
             ;
+        }
+
+        public Question UpdateQuestion(Question questionChanges)
+        {
+            foreach (var poll in _polls)
+            {
+                foreach (var question in poll.Questions)
+                {
+                    if (question.Id == questionChanges.Id)
+                    {
+                        question.AnswersCount = questionChanges.AnswersCount;
+                        question.SoleAnswer = questionChanges.SoleAnswer;
+                        question.Text = questionChanges.Text;
+                        for (int num = 0; num < question.AnswersCount; num++)
+                        {
+                            question.PossibleAnswers[num] = questionChanges.PossibleAnswers[num];
+                        }
+
+                    }
+                }
+            }
+            return questionChanges;
+        }
+
+        public Answer UpdateAnswer(Answer answerChanges)
+        {
+
+            foreach (var poll in _polls)
+            {
+                foreach (var question in poll.Questions)
+                {
+                    foreach (var answer in question.PossibleAnswers)
+                    {
+                        if (answer.Id == answerChanges.Id)
+                        {
+                            answer.Text = answerChanges.Text;
+                            answer.AnswerSelectedCounter = answerChanges.AnswerSelectedCounter;
+                        }
+                    }
+                }
+            }
+            return answerChanges;
         }
     }
 }

@@ -5,9 +5,9 @@ namespace MainMVC.Models.Polls
 {
     public class Question
     {
-        public Question(int Id)
+        public Question()
         {
-            this.Id = Id;
+            Id = 0;
             Text = "noText";
             SoleAnswer = true;
             PossibleAnswers = new List<Answer>();
