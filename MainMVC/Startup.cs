@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MVC_v2.Models.Polls;
+using Microsoft.EntityFrameworkCore;
+using MainMVC.Models.Polls;
+using MainMVC.Models;
+using MainMVC.Models.Users;
 
-namespace MVC_v2
+namespace MainMVC
 {
     public class Startup
     {
@@ -24,8 +27,13 @@ namespace MVC_v2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MainMVCContext")));
+
             services.AddControllersWithViews();
             services.AddSingleton<IPollRepository, MockPollRepository>();
+            //services.AddScoped<IPollRepository, SQLPollRerository>();
+            services.AddSingleton<IUserRepository, MockUserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

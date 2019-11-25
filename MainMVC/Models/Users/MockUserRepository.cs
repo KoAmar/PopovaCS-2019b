@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MVC_v2.Models.Users
+namespace MainMVC.Models.Users
 {
     public class MockUserRepository : IUserRepository
     {

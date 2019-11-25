@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace MVC_v2.Models.Polls
+namespace MainMVC.Models.Polls
 {
     public interface IPollRepository
     {
         Poll GetPoll(int id);
-        IList<Poll> GetPolls();
+        IEnumerable<Poll> GetPolls();
         Poll Add(Poll pull);
     }
 }

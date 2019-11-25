@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MVC_v2.Models.Polls
+namespace MainMVC.Models.Polls
 {
     public class Question
     {
@@ -8,18 +8,18 @@ namespace MVC_v2.Models.Polls
         {
             Text = "";
             SoleAnswer = true;
-            PossibleAnswers = new List<string>();
+            PossibleAnswers = new List<Answer>();
         }
 
-        public Question(string text, bool soleAnswer, IList<string> possibleAnswers)
+        public Question(string text, bool soleAnswer, IEnumerable<Answer> possibleAnswers)
         {
             Text = text;
             SoleAnswer = soleAnswer;
             PossibleAnswers = possibleAnswers;
         }
-
+        public int Id { get; set; }
         public string Text { get; set; }
         public bool SoleAnswer { get; set; }
-        public IList<string> PossibleAnswers { get; set; }
+        public IEnumerable<Answer> PossibleAnswers { get; set; }
     }
 }
