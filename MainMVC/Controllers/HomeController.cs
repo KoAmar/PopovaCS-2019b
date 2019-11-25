@@ -14,8 +14,8 @@ namespace MainMVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPollRepository _pollRepository;
         private readonly IUserRepository _userRepository;
-        private Question _presentlyEditingQuestion;
-        private Poll _presentlyEditingPoll;
+        private int _presentlyEditingPollId;
+        private int _presentlyEditingQuestionId;
 
         public HomeController(ILogger<HomeController> logger, IPollRepository pollRepository, IUserRepository userRepository)
         {
@@ -49,30 +49,28 @@ namespace MainMVC.Controllers
             {
                 for (int num = 1; num < poll.QuestionsCount + 1; num++)
                 {
-                    poll.Questions.Add(new Question(){Id = num });
+                    poll.Questions.Add(new Question() { Id = num });
                 }
                 var newPoll = _pollRepository.Add(poll);
                 return RedirectToAction("QuestionsList", new { pollId = newPoll.Id });
-                //return RedirectToAction("");
-
-
             }
             return View();
         }
 
         public IActionResult QuestionsList(int pollId)
         {
-            var model = _pollRepository.GetPoll(pollId).Questions;
+            var poll = _pollRepository.GetPoll(pollId);
+            _presentlyEditingPollId = poll.Id;
+            var model = poll.Questions;
             return View(model);
         }
 
         [HttpGet]
         public IActionResult EditNumberOfAnswers(int questionId)
         {
-            //_presentlyEditingPoll = _pollRepository.GetPoll(id);
-            //var model = _presentlyEditingPoll.Questions[question];
-            //_presentlyEditingQuestion = model;
-            return View();
+            Question model = _pollRepository.GetQuestion(questionId);
+            _presentlyEditingQuestionId = model.Id;
+            return View(model);
         }
 
         [HttpPost]
@@ -80,14 +78,11 @@ namespace MainMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                question.
-                _presentlyEditingQuestion = question;
+                _pollRepository.UpdateQuestion(question);
 
-                return RedirectToAction("PollsList");
+                return RedirectToAction("QuestionsList", new { _presentlyEditingPollId });
             }
-            //.Questions[question]; 
             return View(question);
-
         }
 
         public IActionResult EditAnswers(int id, int question)

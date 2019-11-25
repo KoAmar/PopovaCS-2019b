@@ -121,6 +121,22 @@ namespace MainMVC.Models.Polls
             ;
         }
 
+        public Question GetQuestion(int Id)
+        {
+            Question result = null;
+            foreach (var poll in _polls)
+            {
+                foreach (var question in poll.Questions)
+                {
+                    if (question.Id == Id)
+                    {
+                        result = question;
+                    }
+                }
+            }
+            return result;
+        }
+
         public Question UpdateQuestion(Question questionChanges)
         {
             foreach (var poll in _polls)
@@ -132,6 +148,22 @@ namespace MainMVC.Models.Polls
                         question.AnswersCount = questionChanges.AnswersCount;
                         question.SoleAnswer = questionChanges.SoleAnswer;
                         question.Text = questionChanges.Text;
+
+                        if (question.AnswersCount < question.PossibleAnswers.Count)
+                        {
+                            for (int num = 0; num < question.PossibleAnswers.Count - question.AnswersCount; num++)
+                            {
+                                question.PossibleAnswers.Add(new Answer());
+                            }
+                        }
+                        else
+                        {
+                            for (int num = 0; num < question.AnswersCount - question.PossibleAnswers.Count; num++)
+                            {
+                                question.PossibleAnswers.RemoveAt(question.AnswersCount + num);
+                            }
+                        }
+
                         for (int num = 0; num < question.AnswersCount; num++)
                         {
                             question.PossibleAnswers[num] = questionChanges.PossibleAnswers[num];
@@ -139,8 +171,31 @@ namespace MainMVC.Models.Polls
 
                     }
                 }
+                var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
+                var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
+                UtilForPoll.SetIds(poll, maxQuestionId, maxAnswerId);
             }
             return questionChanges;
+        }
+
+        public Answer GetAnswer(int Id)
+        {
+            Answer result = null;
+            foreach (var poll in _polls)
+            {
+                foreach (var question in poll.Questions)
+                {
+                    foreach (var answer in question.PossibleAnswers)
+                    {
+                        if (answer.Id == Id)
+                        {
+                            result = answer;
+                        }
+                    }
+                }
+            }
+            return result;
+
         }
 
         public Answer UpdateAnswer(Answer answerChanges)

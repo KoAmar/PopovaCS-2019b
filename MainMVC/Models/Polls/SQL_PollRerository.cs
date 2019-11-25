@@ -49,5 +49,25 @@ namespace MainMVC.Models.Polls
             context.SaveChanges();
             return pollChanges;
         }
+
+        public Question GetQuestion(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Question UpdateQuestion(Question question)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Answer GetAnswer(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Answer UpdateAnswer(Answer answer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

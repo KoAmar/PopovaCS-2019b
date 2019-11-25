@@ -9,7 +9,10 @@ namespace MainMVC.Models.Polls
         Poll Add(Poll poll);
         Poll Update(Poll employeeChanges);
         Poll Delete(int Id);
+        Question GetQuestion(int Id);
         Question UpdateQuestion(Question question);
+        Answer GetAnswer(int Id);
         Answer UpdateAnswer(Answer answer);
+
     }
 }
