@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MainMVC.Models.Polls
 {
-    public class Answer
+    public class Answer : ICloneable
     {
         public Answer(string text = "noAnswerText", int answerSelectedCounter = 0)
         {
@@ -14,8 +14,17 @@ namespace MainMVC.Models.Polls
             AnswerSelectedCounter = answerSelectedCounter;
         }
 
+        public Answer(int id, string text, int answerSelectedCounter)
+        {
+            Id = id;
+            Text = text;
+            AnswerSelectedCounter = answerSelectedCounter;
+        }
+
         public int Id { get; set; }
         public string Text { get; set; }
         public int AnswerSelectedCounter { get; set; }
+
+        public object Clone() => new Answer(Id, Text, AnswerSelectedCounter);
     }
 }

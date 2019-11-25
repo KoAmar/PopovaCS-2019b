@@ -34,6 +34,8 @@ namespace MainMVC
             services.AddSingleton<IPollRepository, RAM_MemoryRepository>();
             //services.AddScoped<IPollRepository, SQLPollRerository>();
             services.AddSingleton<IUserRepository, MockUserRepository>();
+
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,16 +59,18 @@ namespace MainMVC
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=PollsList}/{id?}");
-                endpoints.MapControllerRoute(
-                    name: "editQuestion",
-                    pattern: "{controller}/{action}/{id}/{question}");
+                //endpoints.MapControllerRoute(
+                //    name: "editQuestion",
+                //    pattern: "{controller}/{action}/{id}/{question}");
             });
+
         }
     }
 }

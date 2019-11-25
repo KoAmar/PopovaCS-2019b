@@ -1,6 +1,7 @@
 ﻿using MainMVC.Models;
 using MainMVC.Models.Polls;
 using MainMVC.Models.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -14,8 +15,6 @@ namespace MainMVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPollRepository _pollRepository;
         private readonly IUserRepository _userRepository;
-        private int _presentlyEditingPollId;
-        private int _presentlyEditingQuestionId;
 
         public HomeController(ILogger<HomeController> logger, IPollRepository pollRepository, IUserRepository userRepository)
         {
@@ -60,7 +59,8 @@ namespace MainMVC.Controllers
         public IActionResult QuestionsList(int pollId)
         {
             var poll = _pollRepository.GetPoll(pollId);
-            _presentlyEditingPollId = poll.Id;
+            //Response.Cookies.Append("CurrentPoll", poll.Id.ToString());
+            HttpContext.Session.SetInt32("CurrentPoll", poll.Id);
             var model = poll.Questions;
             return View(model);
         }
@@ -69,7 +69,7 @@ namespace MainMVC.Controllers
         public IActionResult EditNumberOfAnswers(int questionId)
         {
             Question model = _pollRepository.GetQuestion(questionId);
-            _presentlyEditingQuestionId = model.Id;
+            Response.Cookies.Append("CurrentQuestion", model.Id.ToString());
             return View(model);
         }
 
@@ -79,8 +79,8 @@ namespace MainMVC.Controllers
             if (ModelState.IsValid)
             {
                 _pollRepository.UpdateQuestion(question);
-
-                return RedirectToAction("QuestionsList", new { _presentlyEditingPollId });
+                int? currentPoll =  HttpContext.Session.GetInt32("CurrentPoll");
+                return RedirectToAction("QuestionsList", new { pollId = currentPoll});
             }
             return View(question);
         }
