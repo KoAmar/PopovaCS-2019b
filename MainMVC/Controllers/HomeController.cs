@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MainMVC.Models;
+﻿using MainMVC.Models;
 using MainMVC.Models.Polls;
 using MainMVC.Models.Users;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace MainMVC.Controllers
 {
@@ -12,6 +14,8 @@ namespace MainMVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPollRepository _pollRepository;
         private readonly IUserRepository _userRepository;
+        private Question _presentlyEditingQuestion;
+        private Poll _presentlyEditingPoll;
 
         public HomeController(ILogger<HomeController> logger, IPollRepository pollRepository, IUserRepository userRepository)
         {
@@ -20,31 +24,26 @@ namespace MainMVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Polls()
+        public IActionResult ListOfPolls()
         {
             var model = _pollRepository.GetPolls();
             return View(model);
         }
 
-        public IActionResult Poll(int id)
+        public IActionResult ViewPoll(int id)
         {
             var model = _pollRepository.GetPoll(id);
             return View(model);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreatePoll()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Poll poll)
+        public IActionResult CreatePoll(Poll poll)
         {
             if (ModelState.IsValid)
             {
@@ -53,9 +52,42 @@ namespace MainMVC.Controllers
                     poll.Questions.Add(new Question());
                 }
                 var newPoll = _pollRepository.Add(poll);
-                return RedirectToAction("Poll", new { id = newPoll.Id });
+                return RedirectToAction("EditNumberOfAnswers", new { id = newPoll.Id });
             }
             return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult EditNumberOfAnswers(int id, int question)
+        {
+            _presentlyEditingPoll = _pollRepository.GetPoll(id);
+            var model = _presentlyEditingPoll.Questions[question];
+            _presentlyEditingQuestion = model;
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditNumberOfAnswers(Question question)
+        {
+            if (ModelState.IsValid)
+            {
+                for (int num = 0; num < question.AnswersCount; num++)
+                {
+                    question.PossibleAnswers.Add(new Answer());
+                }
+                _presentlyEditingQuestion = question;
+                return RedirectToAction("ListOfPolls");
+            }
+            //.Questions[question]; 
+            return View(question);
+
+        }
+
+        public IActionResult EditAnswers(int id, int question)
+        {
+            var model = _pollRepository.GetPoll(id).Questions[question];
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

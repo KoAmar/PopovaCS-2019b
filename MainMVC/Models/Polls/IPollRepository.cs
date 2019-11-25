@@ -4,8 +4,10 @@ namespace MainMVC.Models.Polls
 {
     public interface IPollRepository
     {
-        Poll GetPoll(int id);
+        Poll GetPoll(int Id);
         IEnumerable<Poll> GetPolls();
         Poll Add(Poll pull);
+        Poll Update(Poll employeeChanges);
+        Poll Delete(int Id);
     }
 }

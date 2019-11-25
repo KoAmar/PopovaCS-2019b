@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,6 +26,7 @@ namespace MainMVC.Models.Polls
         public string CreatorLogin { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.Now;
         [Required]
+        [Range(1,100)]
         public int QuestionsCount { get; set; }
         public IList<Question> Questions { get; set; }
     }

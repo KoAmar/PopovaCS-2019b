@@ -16,8 +16,8 @@
             <div class="card-body pl-5">
                 <p class="card-title">@poll.Description</p>
                 <p class="card-text text-center"><small class="text-muted">№@(poll.Id)</small></p>
-                <a asp-controller="Home" asp-action="Poll" asp-route-id="@poll.Id" class="card-link">Открыть</a>
-                <a href="#" class="card-link">Another link</a>
+                <a asp-controller="Home" asp-action="ViewPoll" asp-route-id="@poll.Id" class="card-link">Открыть</a>
+                <a asp-controller="Home" asp-action="ViewPoll" asp-route-id="@poll.Id" class="card-link">Открыть</a>
             </div>
         </div>
     }

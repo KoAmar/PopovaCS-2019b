@@ -9,5 +9,6 @@ namespace MainMVC.Models.Users
     {
         User Login(string email, string password);
         User Register(string email, string login, string password);
+        bool ContainEmail(string email);
     }
 }

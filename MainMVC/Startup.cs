@@ -31,7 +31,7 @@ namespace MainMVC
                 options.UseSqlServer(Configuration.GetConnectionString("MainMVCContext")));
 
             services.AddControllersWithViews();
-            services.AddSingleton<IPollRepository, MockPollRepository>();
+            services.AddSingleton<IPollRepository, RAMMemoryRepository>();
             //services.AddScoped<IPollRepository, SQLPollRerository>();
             services.AddSingleton<IUserRepository, MockUserRepository>();
         }
@@ -62,7 +62,10 @@ namespace MainMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Polls}/{id?}");
+                    pattern: "{controller=Home}/{action=ListOfPolls}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "editQuestion",
+                    pattern: "{controller}/{action}/{id}/{question}");
             });
         }
     }

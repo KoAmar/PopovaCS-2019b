@@ -38,7 +38,12 @@ namespace MainMVC.Models.Users
             };
         }
 
-        private User ContainEmail(string email)
+        public bool ContainEmail(string email)
+        {
+            return FindUserByEmail(email) != null;
+        }
+
+        private User FindUserByEmail(string email)
         {
             foreach (var user in _users)
             {
@@ -49,7 +54,7 @@ namespace MainMVC.Models.Users
 
         private User IsValid(string email, string password)
         {
-            var user = ContainEmail(email);
+            var user = FindUserByEmail(email);
             if (user != null)
             {
                 if (user.PasswordHash == password)
@@ -83,7 +88,7 @@ namespace MainMVC.Models.Users
 
         public User Register(string email, string login, string password)
         {
-            var user = ContainEmail(email);
+            var user = FindUserByEmail(email);
             if (user == null)
             {
                 if (IsValidLogin(login))

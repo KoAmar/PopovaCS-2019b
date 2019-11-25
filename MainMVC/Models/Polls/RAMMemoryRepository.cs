@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace MainMVC.Models.Polls
 {
-    public class MockPollRepository : IPollRepository
+    public class RAMMemoryRepository : IPollRepository
     {
         private readonly List<Poll> _polls;
 
-        public MockPollRepository()
+        public RAMMemoryRepository()
         {
             _polls = new List<Poll>()
             {
@@ -115,6 +115,29 @@ namespace MainMVC.Models.Polls
             pull.Id = _polls.Max(e => e.Id) + 1;
             _polls.Add(pull);
             return pull;
+        }
+
+        public Poll Update(Poll employeeChanges)
+        {
+            Employee employee = _employeeList.FirstOrDefault(e => e.Id == employeeChanges.Id);
+            if (employee != null)
+            {
+                employee.Name = employeeChanges.Name;
+                employee.Email = employeeChanges.Email;
+                employee.Department = employeeChanges.Department;
+            }
+            return employee;
+        }
+
+        public Poll Delete(int Id)
+        {
+            Poll employee = _polls.FirstOrDefault(e => e.Id == Id);
+            if (employee != null)
+            {
+                _polls.Remove(employee);
+            }
+            return employee;
+            ;
         }
     }
 }
