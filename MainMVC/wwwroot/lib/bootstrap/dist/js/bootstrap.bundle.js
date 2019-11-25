@@ -2717,7 +2717,7 @@
    *
    * The tale of pixel-perfect positioning. It's still not 100% perfect, but as
    * good as it can be within reason.
-   * Discussion here: https://github.com/FezVrasta/popper.js/pull/715
+   * Discussion here: https://github.com/FezVrasta/popper.js/poll/715
    *
    * Low DPI screens cause a popper to be blurry if not using full pixels (Safari
    * as well on High DPI screens).

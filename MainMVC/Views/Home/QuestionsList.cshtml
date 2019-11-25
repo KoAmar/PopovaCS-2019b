@@ -1,0 +1,19 @@
+﻿@model IList<Question>
+@{
+    ViewData["Title"] = "QuestionsList";
+}
+
+<h1>QuestionsList</h1>
+@foreach (var question in Model)
+{
+    <div class="card mt-3 mb-1">
+        <div class="card-body">
+            <h6 class="card-title">
+                @(Model.IndexOf(question) + 1). @question.Text
+            </h6>
+            <p>AnswersCount: @question.AnswersCount</p>
+            <a @Html.ActionLink("Редактировать кол-вопросов", "EditNumberOfAnswers", "Home", new { questionId = question.Id }) class="card-link">Change number of answers</a>
+            <a @Html.ActionLink("Редактировать вовопросы", "EditNumberOfAnswers", "Home", new { questionId = question.Id }) class="card-link">Change number of answers</a>
+        </div>
+    </div>
+}

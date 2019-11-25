@@ -24,7 +24,7 @@ namespace MainMVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult ListOfPolls()
+        public IActionResult PollsList()
         {
             var model = _pollRepository.GetPolls();
             return View(model);
@@ -47,24 +47,32 @@ namespace MainMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                for (int num = 0; num < poll.QuestionsCount; num++)
+                for (int num = 1; num < poll.QuestionsCount + 1; num++)
                 {
-                    poll.Questions.Add(new Question());
+                    poll.Questions.Add(new Question(num));
                 }
                 var newPoll = _pollRepository.Add(poll);
-                return RedirectToAction("EditNumberOfAnswers", new { id = newPoll.Id });
+                return RedirectToAction("QuestionsList", new { pollId = newPoll.Id });
+                //return RedirectToAction("");
+
+
             }
             return View();
         }
 
+        public IActionResult QuestionsList(int pollId)
+        {
+            var model = _pollRepository.GetPoll(pollId).Questions;
+            return View(model);
+        }
 
         [HttpGet]
-        public IActionResult EditNumberOfAnswers(int id, int question)
+        public IActionResult EditNumberOfAnswers(int questionId)
         {
-            _presentlyEditingPoll = _pollRepository.GetPoll(id);
-            var model = _presentlyEditingPoll.Questions[question];
-            _presentlyEditingQuestion = model;
-            return View(model);
+            //_presentlyEditingPoll = _pollRepository.GetPoll(id);
+            //var model = _presentlyEditingPoll.Questions[question];
+            //_presentlyEditingQuestion = model;
+            return View();
         }
 
         [HttpPost]
@@ -72,12 +80,13 @@ namespace MainMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                for (int num = 0; num < question.AnswersCount; num++)
+                for (int num = 1; num < question.AnswersCount + 1; num++)
                 {
-                    question.PossibleAnswers.Add(new Answer());
+                    question.PossibleAnswers.Add(new Answer(num));
                 }
                 _presentlyEditingQuestion = question;
-                return RedirectToAction("ListOfPolls");
+
+                return RedirectToAction("PollsList");
             }
             //.Questions[question]; 
             return View(question);

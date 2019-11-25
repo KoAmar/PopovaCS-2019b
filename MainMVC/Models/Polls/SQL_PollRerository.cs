@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace MainMVC.Models.Polls
 {
-    public class SQLPollRerository : IPollRepository
+    public class SQL_PollRerository : IPollRepository
     {
         private readonly AppDbContext context;
 
-        public SQLPollRerository(AppDbContext context)
+        public SQL_PollRerository(AppDbContext context)
         {
             this.context = context;
         }
