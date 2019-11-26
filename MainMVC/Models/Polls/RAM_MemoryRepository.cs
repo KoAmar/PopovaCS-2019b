@@ -8,7 +8,7 @@ namespace MainMVC.Models.Polls
 {
     public class RAM_MemoryRepository : IPollRepository
     {
-        private readonly List<Poll> _polls;
+        private List<Poll> _polls;
 
         public RAM_MemoryRepository()
         {
@@ -88,14 +88,13 @@ namespace MainMVC.Models.Polls
         {
             var Id = _polls.Max(e => e.Id) + 1;
             poll.Id = Id;
+            _polls.Add(poll);
 
             var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
             var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
-
-            _polls.Add(poll);
+            _polls = UtilForPoll.SetIds(_polls, maxQuestionId, maxAnswerId);
             return poll;
         }
-
 
         public Poll Update(Poll pollChanges)
         {
@@ -145,36 +144,42 @@ namespace MainMVC.Models.Polls
                 {
                     if (question.Id == questionChanges.Id)
                     {
+
                         question.AnswersCount = questionChanges.AnswersCount;
                         question.SoleAnswer = questionChanges.SoleAnswer;
                         question.Text = questionChanges.Text;
-
-                        if (question.AnswersCount < question.PossibleAnswers.Count)
+                        int loops = question.AnswersCount - question.PossibleAnswers.Count;
+                        if (loops > 0)
                         {
-                            for (int num = 0; num < question.PossibleAnswers.Count - question.AnswersCount; num++)
+                            for (int num = 0; num < loops; num++)
                             {
                                 question.PossibleAnswers.Add(new Answer());
                             }
                         }
                         else
                         {
-                            for (int num = 0; num < question.AnswersCount - question.PossibleAnswers.Count; num++)
+                            for (int num = 0; num < -loops; num++)
                             {
-                                question.PossibleAnswers.RemoveAt(question.AnswersCount + num);
+                                question.PossibleAnswers.RemoveAt(question.PossibleAnswers.Count - 1);
                             }
                         }
-
-                        for (int num = 0; num < question.AnswersCount; num++)
+                        loops = -1;
+                        if(question.PossibleAnswers.Count == questionChanges.PossibleAnswers.Count)
+                        {
+                            loops = questionChanges.AnswersCount;
+                        }
+                        for (int num = 0; num < loops; num++)
                         {
                             question.PossibleAnswers[num] = questionChanges.PossibleAnswers[num];
                         }
 
                     }
                 }
-                var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
-                var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
-                UtilForPoll.SetIds(poll, maxQuestionId, maxAnswerId);
+
             }
+            var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
+            var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
+            //_polls = UtilForPoll.SetIds(_polls, maxQuestionId, maxAnswerId);
             return questionChanges;
         }
 

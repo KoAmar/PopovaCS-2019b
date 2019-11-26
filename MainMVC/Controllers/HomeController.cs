@@ -48,7 +48,7 @@ namespace MainMVC.Controllers
             {
                 for (int num = 1; num < poll.QuestionsCount + 1; num++)
                 {
-                    poll.Questions.Add(new Question() { Id = num });
+                    poll.Questions.Add(new Question());
                 }
                 var newPoll = _pollRepository.Add(poll);
                 return RedirectToAction("QuestionsList", new { pollId = newPoll.Id });
@@ -69,7 +69,8 @@ namespace MainMVC.Controllers
         public IActionResult EditNumberOfAnswers(int questionId)
         {
             Question model = _pollRepository.GetQuestion(questionId);
-            Response.Cookies.Append("CurrentQuestion", model.Id.ToString());
+            HttpContext.Session.SetInt32("CurrentQuestion", questionId);
+            //Response.Cookies.Append("CurrentQuestion", model.Id.ToString());
             return View(model);
         }
 
@@ -78,9 +79,12 @@ namespace MainMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                int? Id = HttpContext.Session.GetInt32("CurrentQuestion");
+                question.Id = (int)Id;
                 _pollRepository.UpdateQuestion(question);
-                int? currentPoll =  HttpContext.Session.GetInt32("CurrentPoll");
-                return RedirectToAction("QuestionsList", new { pollId = currentPoll});
+
+                int? currentPoll = HttpContext.Session.GetInt32("CurrentPoll");
+                return RedirectToAction("QuestionsList", new { pollId = currentPoll });
             }
             return View(question);
         }

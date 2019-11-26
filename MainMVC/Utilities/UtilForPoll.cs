@@ -8,21 +8,21 @@ namespace MainMVC.Utilities
 {
     public static class UtilForPoll
     {
-        public static Poll SetIds(Poll poll, int maxQuestionId, int maxAnswerId)
-        {   
-            foreach (var question in poll.Questions)
+        public static List<Poll> SetIds(List<Poll> polls, int maxQuestionId, int maxAnswerId)
+        {
+            foreach (var poll in polls)
             {
-                if (question != null)
+
+                foreach (var question in poll.Questions)
                 {
-                    question.Id = ++maxQuestionId;
+                    if (question.Id == 0) { question.Id = ++maxQuestionId; }
                     foreach (var answer in question.PossibleAnswers)
                     {
-                        if (answer != null) { answer.Id = ++maxAnswerId; }
+                        if (answer.Id == 0) { answer.Id = ++maxAnswerId; }
                     }
-
                 }
             }
-            return poll;
+            return polls;
         }
 
         public static int MaxQuestionId(List<Poll> polls)
