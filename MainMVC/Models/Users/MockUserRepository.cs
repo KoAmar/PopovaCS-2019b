@@ -43,29 +43,50 @@ namespace MainMVC.Models.Users
             return FindUserByEmail(email) != null;
         }
 
-        private User FindUserByEmail(string email)
+        public User FindUserByEmail(string email)
         {
+            User result = null;
             foreach (var user in _users)
             {
-                if (user.Email == email) { return user; }
+                if (user.Email == email) { result = user; }
             }
-            return null;
+            return result;
         }
 
-        private User IsValid(string email, string password)
+        public User IsValidUser(string email, string password)
         {
+            User result = null;
             var user = FindUserByEmail(email);
             if (user != null)
             {
                 if (user.PasswordHash == password)
                 {
-                    return user;
+                    result = user;
                 }
             }
-            return null;
+            return result;
         }
 
-        private bool IsValidLogin(string login)
+        public int StrongPassword(string password)
+        {
+            int result = 0;
+
+            if (password.Length >= 6)
+            {
+                result++;
+                if (Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Success &&
+                    Regex.Match(password, @"/[A-Z]/", RegexOptions.ECMAScript).Success)
+                {
+                    result++;
+                    if (Regex.Match(password, @"/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", RegexOptions.ECMAScript).Success)
+                    {
+                        result++;
+                    }
+                }
+            }
+            return result;
+        }
+        public bool IsValidLogin(string login)
         {
             string loginPattern = @"\w{3,20}";
             return Regex.IsMatch(login, loginPattern);
@@ -73,17 +94,18 @@ namespace MainMVC.Models.Users
 
         public User Login(string email, string password)
         {
+            User result = null;
             string emailPattern = @"\w{1,30}@\w{1,30}\.\w{1,15}";
             string passwordPattern = @"\w{6,64}";
             if (Regex.IsMatch(email, emailPattern) && Regex.IsMatch(password, passwordPattern))
             {
-                var user = IsValid(email, password);
+                var user = IsValidUser(email, password);
                 if (user != null)
                 {
-                    return user;
+                    result = user;
                 }
             }
-            return null;
+            return result;
         }
 
         public User Register(string email, string login, string password)

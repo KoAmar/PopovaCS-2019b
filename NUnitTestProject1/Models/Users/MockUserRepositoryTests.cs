@@ -30,12 +30,22 @@ namespace NUnitTestProject1.Models.Users
         }
 
         [Test]
+        //[TestCase("pavlik@mail", "111111")]
         public void Login_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var mockUserRepository = this.CreateMockUserRepository();
-            string email = null;
-            string password = null;
+            var mockUserRepository = new MockUserRepository();
+            var email = "pavlik@mail.com";
+            var password = "111111";
+
+            var user = new User
+            {
+                Id = 1,
+                Email = "pavlik@mail.com",
+                Login = "Pavlik",
+                PasswordHash = "111111",
+                Role = User.Roles.User
+            };
 
             // Act
             var result = mockUserRepository.Login(
@@ -43,26 +53,30 @@ namespace NUnitTestProject1.Models.Users
                 password);
 
             // Assert
-            Assert.Fail();
+            Assert.AreEqual(user, result);
         }
 
-        [Test]
-        public void Register_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var mockUserRepository = this.CreateMockUserRepository();
-            string email = null;
-            string login = null;
-            string password = null;
 
-            // Act
-            var result = mockUserRepository.Register(
-                email,
-                login,
-                password);
+        ////[Test]
+        ////[TestCase("lokin", "pavlik@mail.com", "1")]
+        //[TestCase("Pavlik", "pavlik@mail.com", "111111")]
+        //[TestCase("123555", "1255ds@mail.com", "123456")]
+        ////[TestCase("Pavlik", "pavlik@mail", "111111")]
+        //public void Register_StateUnderTest_ExpectedBehavior(string login, string email, string password)
+        //{
+        //    // Arrange
+        //    var mockUserRepository = new MockUserRepository();
 
-            // Assert
-            Assert.Fail();
-        }
+        //    // Act
+        //    var result = mockUserRepository.Register(
+        //        email,
+        //        login,
+        //        password);
+
+        //    var loginResult = mockUserRepository.Login(email, password);
+
+        //    // Assert
+        //    Assert.AreEqual(result, loginResult);
+        //}
     }
 }

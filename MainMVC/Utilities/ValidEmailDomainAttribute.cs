@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MainMVC.Utilities
 {
-    public class ValidEmailAttribute : ValidationAttribute
+    public class ValidEmailDomainAttribute : ValidationAttribute
     {
         private readonly string _allowed;
 
-        public ValidEmailAttribute(string allowedDomain)
+        public ValidEmailDomainAttribute(string allowedDomain)
         {
             _allowed = allowedDomain;
         }
@@ -21,7 +21,7 @@ namespace MainMVC.Utilities
 
             var rootDomain = parts[^1].ToLower().Split('.');
 
-            return rootDomain[^1] == "by";
+            return rootDomain[^1] == _allowed;
         }
     }
 }

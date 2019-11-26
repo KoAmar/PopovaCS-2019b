@@ -23,6 +23,17 @@ namespace MainMVC.Controllers
             _logger = logger;
         }
 
+        public HomeController(IPollRepository pollRepository, IUserRepository userRepository)
+        {
+            _pollRepository = pollRepository;
+            _userRepository = userRepository;
+        }
+
+        public HomeController(IPollRepository pollRepository)
+        {
+            _pollRepository = pollRepository;
+        }
+
         public IActionResult PollsList()
         {
             var model = _pollRepository.GetPolls();
