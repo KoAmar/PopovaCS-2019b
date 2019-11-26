@@ -89,6 +89,7 @@ namespace MainMVC.Controllers
             return View(question);
         }
 
+        //TODO add support of Answer Editing
         public IActionResult EditAnswers(int id, int question)
         {
             var model = _pollRepository.GetPoll(id).Questions[question];

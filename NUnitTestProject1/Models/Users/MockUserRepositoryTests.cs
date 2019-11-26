@@ -8,23 +8,6 @@ namespace NUnitTestProject1.Models.Users
     [TestFixture]
     public class MockUserRepositoryTests
     {
-        private MockRepository mockRepository;
-
-
-
-        [SetUp]
-        public void SetUp()
-        {
-            this.mockRepository = new MockRepository(MockBehavior.Strict);
-
-
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            this.mockRepository.VerifyAll();
-        }
 
         private MockUserRepository CreateMockUserRepository()
         {
