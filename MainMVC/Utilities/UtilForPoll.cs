@@ -10,15 +10,18 @@ namespace MainMVC.Utilities
     {
         public static List<Poll> SetIds(List<Poll> polls, int maxQuestionId, int maxAnswerId)
         {
-            foreach (var poll in polls)
+            //отсуствовала проверка на null
+            if (polls != null)
             {
-
-                foreach (var question in poll.Questions)
+                foreach (var poll in polls)
                 {
-                    if (question.Id == 0) { question.Id = ++maxQuestionId; }
-                    foreach (var answer in question.PossibleAnswers)
+                    foreach (var question in poll.Questions)
                     {
-                        if (answer.Id == 0) { answer.Id = ++maxAnswerId; }
+                        if (question.Id == 0) { question.Id = ++maxQuestionId; }
+                        foreach (var answer in question.PossibleAnswers)
+                        {
+                            if (answer.Id == 0) { answer.Id = ++maxAnswerId; }
+                        }
                     }
                 }
             }
