@@ -15,23 +15,122 @@ namespace NUnitTestProject1.Models.Users
         }
 
         [Test]
-        public void ContainEmail_StateUnderTest_ExpectedBehavior()
+        public void StrongPasswordTest_level1_Equal()
         {
             // Arrange
-            var mockUserRepository = this.CreateMockUserRepository();
-            string email = "pa1318vel@gmail.com";
+            //var mockUserRepository = this.CreateMockUserRepository();
+            string password = "111111";
 
             // Act
-            var result = mockUserRepository.ContainEmail(
-                email);
+            var result = MockUserRepository.StrongPassword(
+                password);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.AreEqual(1, result);
         }
 
         [Test]
-        //[TestCase("pavlik@mail", "111111")]
-        public void Login_StateUnderTest_ExpectedBehavior()
+        public void StrongPasswordTest_level2_Equal()
+        {
+            // Arrange
+            //var mockUserRepository = this.CreateMockUserRepository();
+            string password = "11s111";
+
+            // Act
+            var result = MockUserRepository.StrongPassword(
+                password);
+
+            // Assert
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void StrongPasswordTest_level3_Equal()
+        {
+            // Arrange
+            //var mockUserRepository = this.CreateMockUserRepository();
+            string password = "11$a11";
+
+            // Act
+            var result = MockUserRepository.StrongPassword(
+                password);
+
+            // Assert
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void Login_UnregistredLogin_Null()
+        {
+            // Arrange
+            var mockUserRepository = new MockUserRepository();
+            var email = "pavl@mail.com";
+            var password = "111111";
+
+            var user = new User
+            {
+                Id = 1,
+                Email = "pavlik@mail.com",
+                Login = "Pavlik",
+                PasswordHash = "111111",
+                Role = User.Roles.User
+            };
+
+            // Act
+            var result = mockUserRepository.Login(
+                email,
+                password);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Test]
+        public void Login_badLogin_Equal()
+        {
+            // Arrange
+            var mockUserRepository = new MockUserRepository();
+            var email = "pavl@mail.com";
+            var password = "111111";
+
+            var user = new User
+            {
+                Id = 1,
+                Email = "pavlik@mail.com",
+                Login = "Pavlik",
+                PasswordHash = "111111",
+                Role = User.Roles.User
+            };
+
+            // Act
+            var result = mockUserRepository.Login(
+                email,
+                password);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Test]
+        public void Login_emptyUsers_Null()
+        {
+            // Arrange
+            var mockUserRepository = new MockUserRepository();
+            mockUserRepository.ClearUsers();
+            var email = "pavl@mail.com";
+            var password = "111111";
+
+            // Act
+            var result = mockUserRepository.Login(
+                email,
+                password);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Test]
+        public void Login_normal_Equal()
         {
             // Arrange
             var mockUserRepository = new MockUserRepository();
@@ -56,27 +155,5 @@ namespace NUnitTestProject1.Models.Users
             Assert.AreEqual(user, result);
         }
 
-
-        ////[Test]
-        ////[TestCase("lokin", "pavlik@mail.com", "1")]
-        //[TestCase("Pavlik", "pavlik@mail.com", "111111")]
-        //[TestCase("123555", "1255ds@mail.com", "123456")]
-        ////[TestCase("Pavlik", "pavlik@mail", "111111")]
-        //public void Register_StateUnderTest_ExpectedBehavior(string login, string email, string password)
-        //{
-        //    // Arrange
-        //    var mockUserRepository = new MockUserRepository();
-
-        //    // Act
-        //    var result = mockUserRepository.Register(
-        //        email,
-        //        login,
-        //        password);
-
-        //    var loginResult = mockUserRepository.Login(email, password);
-
-        //    // Assert
-        //    Assert.AreEqual(result, loginResult);
-        //}
     }
 }

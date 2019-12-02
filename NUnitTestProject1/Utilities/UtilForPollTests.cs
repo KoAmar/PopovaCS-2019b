@@ -42,6 +42,83 @@ namespace NUnitTestProject1.Utilities
         }
 
         [Test]
+        public void MaxQuestionId_emptyPoll_empty()
+        {
+            // Arrange
+            List<Poll> polls = mockRepository;
+            polls.Clear();
+
+            // Act
+            var result = UtilForPoll.MaxQuestionId(polls);
+
+            // Assert
+            Assert.AreEqual(int.MinValue, result);
+        }
+
+        [Test]
+        public void MaxQuestionId_emptyQuestion_empty()
+        {
+            // Arrange
+            List<Poll> polls = mockRepository;
+            polls[0].Questions.Clear();
+
+            // Act
+            var result = UtilForPoll.MaxQuestionId(polls);
+
+            // Assert
+            Assert.AreEqual(int.MinValue, result);
+        }
+
+        [Test]
+        public void MaxQuestionId_smallid_empty()
+        {
+            // Arrange
+            List<Poll> polls = mockRepository;
+
+            // Act
+            var result = UtilForPoll.MaxQuestionId(polls);
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void MaxQuestionId_normal_equal()
+        {
+            // Arrange
+            List<Poll> polls = mockRepository;
+            polls.Add(new Poll()
+            {
+                Id = 1,
+                Name = "First Poll",
+                CreatorLogin = "Pavlik",
+                Description = "Some quick example text to build on the card title and make up the bulk of the card's content.",
+                CreationDate = default,
+                QuestionsCount = 1,
+                Questions = new List<Question>(){
+                        new Question(){
+                            Id = 5,
+                            Text = "Is this the real life?",
+                            SoleAnswer = true,
+                            AnswersCount = 3,
+                            PossibleAnswers = new List<Answer>()
+                            {
+                                new Answer("Is this just fantasy?"){Id = 0 },
+                                new Answer("I'm just a poor boy"){Id = 0 },
+                                new Answer("I don't wanna die"){Id = 0 }
+                            }
+                        }
+                    }
+            });
+
+            // Act
+            var result = UtilForPoll.MaxQuestionId(polls);
+
+            // Assert
+            Assert.AreEqual(5, result);
+        }
+
+        [Test]
         public void SetIds_NullPoll_Null()
         {
             // Arrange
@@ -151,5 +228,7 @@ namespace NUnitTestProject1.Utilities
             // Assert
             Assert.AreEqual(2, result[0].Questions[0].PossibleAnswers[1].Id);
         }
+
+
     }
 }

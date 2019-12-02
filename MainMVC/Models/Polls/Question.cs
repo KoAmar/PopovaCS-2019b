@@ -41,6 +41,7 @@ namespace MainMVC.Models.Polls
         public int AnswersCount { get; set; }
         public IList<Answer> PossibleAnswers { get; set; }
 
+
         public object Clone()
         {
             IList<Answer> possibleAnswers = new List<Answer>();

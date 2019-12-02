@@ -67,7 +67,7 @@ namespace MainMVC.Models.Users
             return result;
         }
 
-        public int StrongPassword(string password)
+        public static int StrongPassword(string password)
         {
             int result = 0;
 
@@ -86,24 +86,38 @@ namespace MainMVC.Models.Users
             }
             return result;
         }
+
         public bool IsValidLogin(string login)
         {
             string loginPattern = @"\w{3,20}";
             return Regex.IsMatch(login, loginPattern);
         }
 
+        //public static bool PositiveLogin(string login)
+        //{
+        //    bool result = true;
+        //    switch (login)
+        //    {
+        //        case Regex.();
+        //        default:
+        //            break;
+        //    }
+        //}
+
         public User Login(string email, string password)
         {
             User result = null;
             string emailPattern = @"\w{1,30}@\w{1,30}\.\w{1,15}";
-            string passwordPattern = @"\w{6,64}";
-            if (Regex.IsMatch(email, emailPattern) && Regex.IsMatch(password, passwordPattern))
+            if (Regex.IsMatch(email, emailPattern))
             {
-                var user = IsValidUser(email, password);
-                if (user != null)
+                foreach (var user in _users)
                 {
-                    result = user;
+                    if (user.Email == email)
+                    {
+                        result = user;
+                    }
                 }
+
             }
             return result;
         }
@@ -119,6 +133,11 @@ namespace MainMVC.Models.Users
                 }
             }
             return null;
+        }
+
+        public void ClearUsers()
+        {
+            _users.Clear();
         }
     }
 }

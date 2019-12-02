@@ -16,12 +16,13 @@ namespace MainMVC.Controllers
         private readonly IPollRepository _pollRepository;
         private readonly IUserRepository _userRepository;
 
-        public HomeController(ILogger<HomeController> logger, IPollRepository pollRepository, IUserRepository userRepository)
-        {
-            _pollRepository = pollRepository;
-            _userRepository = userRepository;
-            _logger = logger;
-        }
+        //public HomeController(ILogger<HomeController> logger, IPollRepository pollRepository, IUserRepository userRepository)
+        //{
+        //    _pollRepository = pollRepository;
+        //    _userRepository = userRepository;
+        //    _logger = logger;
+        //}
+
 
         public HomeController(IPollRepository pollRepository, IUserRepository userRepository)
         {
@@ -29,10 +30,10 @@ namespace MainMVC.Controllers
             _userRepository = userRepository;
         }
 
-        public HomeController(IPollRepository pollRepository)
-        {
-            _pollRepository = pollRepository;
-        }
+        //public HomeController(IPollRepository pollRepository)
+        //{
+        //    _pollRepository = pollRepository;
+        //}
 
         public IActionResult PollsList()
         {
@@ -57,7 +58,7 @@ namespace MainMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                for (int num = 1; num < poll.QuestionsCount + 1; num++)
+               for (int num = 1; num < poll.QuestionsCount + 1; num++)
                 {
                     poll.Questions.Add(new Question());
                 }
