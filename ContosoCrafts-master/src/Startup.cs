@@ -62,7 +62,7 @@ namespace ContosoCrafts.WebSite
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
 
-                // endpoints.MapGet("/products", (context) => 
+                // endpoints.MapGet("/products", (context) =>
                 // {
                 //     var products = app.ApplicationServices.GetService<JsonFileProductService>().GetProducts();
                 //     var json = JsonSerializer.Serialize<IEnumerable<Product>>(products);

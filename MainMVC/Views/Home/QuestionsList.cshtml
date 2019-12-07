@@ -21,7 +21,7 @@
             <div class="row justify-content-around">
                 <p class="text-muted">Question Id: @question.Id</p>
                 @Html.ActionLink("Редактировать кол-вопросов", "EditNumberOfAnswers", "Home", new { questionId = question.Id })
-                @Html.ActionLink("Редактировать вопросы", "EditNumberOfAnswers", "Home", new { questionId = question.Id })
+                @Html.ActionLink("Редактировать вопросы", "EditAnswers", "Home", new { questionId = question.Id })
             </div>
 
         </div>

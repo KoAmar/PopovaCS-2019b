@@ -228,7 +228,5 @@ namespace NUnitTestProject1.Utilities
             // Assert
             Assert.AreEqual(2, result[0].Questions[0].PossibleAnswers[1].Id);
         }
-
-
     }
 }
