@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace MainMVC.Models.Polls
+namespace MainMVC.Models.Polls.Entities
 {
     public class Answer : ICloneable
     {
@@ -36,5 +33,12 @@ namespace MainMVC.Models.Polls
         public int AnswerSelectedCounter { get; set; }
 
         public object Clone() => new Answer(Id, Text, AnswerSelectedCounter);
+
+        public void Update(Answer answerChanges)
+        {
+            Id = answerChanges.Id;
+            Text = answerChanges.Text;
+            AnswerSelectedCounter = answerChanges.AnswerSelectedCounter;
+        }
     }
 }

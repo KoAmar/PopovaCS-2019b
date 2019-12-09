@@ -1,5 +1,6 @@
 ﻿using MainMVC.Models;
 using MainMVC.Models.Polls;
+
 using MainMVC.Models.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using MainMVC.Models.Polls.Entities;
 
 namespace MainMVC.Controllers
 {
@@ -121,6 +123,27 @@ namespace MainMVC.Controllers
 
             //return View(model);
             return RedirectToAction("QuestionsList", new { pollId = currentPoll });
+        }
+
+        [HttpGet]
+        public IActionResult Test()
+        {
+            var model = _pollRepository.GetPoll(1);
+
+            //return View(model);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Test(Poll question)
+        {
+            if (ModelState.IsValid)
+            {
+                var a = _pollRepository.Update(question);
+
+                return RedirectToAction("");
+            }
+            return View(question);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

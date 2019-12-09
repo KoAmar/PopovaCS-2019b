@@ -1,0 +1,51 @@
+﻿@model MainMVC.Models.Polls.Entities.Poll
+
+@{
+    ViewData["Title"] = "Test";
+}
+
+<h1>Test</h1>
+
+<h4>Poll</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Test" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatorLogin" class="control-label"></label>
+                <input asp-for="CreatorLogin" class="form-control" />
+                <span asp-validation-for="CreatorLogin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreationDate" class="control-label"></label>
+                <input asp-for="CreationDate" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionsCount" class="control-label"></label>
+                <input asp-for="QuestionsCount" class="form-control" />
+                <span asp-validation-for="QuestionsCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <h1>hui2</h1>
+    @* <a asp-action="Index">Back to List</a> *@
+</div>

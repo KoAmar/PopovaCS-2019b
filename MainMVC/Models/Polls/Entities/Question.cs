@@ -1,9 +1,9 @@
-﻿using MainMVC.Models.Polls.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
-namespace MainMVC.Models.Polls
+namespace MainMVC.Models.Polls.Entities
 {
     public class Question : ICloneable
     {
@@ -49,11 +49,26 @@ namespace MainMVC.Models.Polls
         public object Clone()
         {
             IList<Answer> possibleAnswers = new List<Answer>();
-            for (int num = 0; num < PossibleAnswers.Count; num++)
+            foreach (var ans in PossibleAnswers)
             {
-                possibleAnswers[num] = (Answer)PossibleAnswers[num].Clone();
+                possibleAnswers.Add((Answer)ans.Clone());
             }
             return new Question(Id, Text, SoleAnswer, AnswersCount, possibleAnswers);
+        }
+
+        public void Update(Question question)
+        {
+            Id = question.Id;
+            Text = question.Text;
+            SoleAnswer = question.SoleAnswer;
+
+            PossibleAnswers.Clear();
+
+            foreach (var ans in question.PossibleAnswers)
+            {
+                PossibleAnswers.Add((Answer)ans.Clone());
+            }
+            AnswersCount = 0;
         }
     }
 }

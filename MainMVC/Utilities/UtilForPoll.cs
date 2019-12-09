@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MainMVC.Models.Polls.Entities;
 
 namespace MainMVC.Utilities
 {
@@ -51,7 +52,7 @@ namespace MainMVC.Utilities
                 {
                     foreach (var answer in question.PossibleAnswers)
                     {
-                        //стояло question, вместо answer 
+                        //стояло question, вместо answer
                         int id = answer.Id;
                         if (id > result) { result = id; }
                     }

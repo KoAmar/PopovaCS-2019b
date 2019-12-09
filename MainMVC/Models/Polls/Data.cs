@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainMVC.Models.Polls.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace MainMVC.Models.Polls
                             AnswersCount = 3,
                             PossibleAnswers = new List<Answer>()
                             {
-                                new Answer("Is this just fantasy?"){Id = 1 },
+                                new Answer("Is this justы fantasy?"){Id = 1 },
                                 new Answer("I'm just a poor boy"){Id = 2 },
                                 new Answer("I don't wanna die"){Id = 3 }
                             }
@@ -42,7 +43,6 @@ namespace MainMVC.Models.Polls
                                 new Answer("I'm just a poor boy"){Id = 5 }
                             }
                         }
-
                     }
                 },
                 new Poll( ){
@@ -70,6 +70,5 @@ namespace MainMVC.Models.Polls
                 }
             };
         }
-
     }
 }

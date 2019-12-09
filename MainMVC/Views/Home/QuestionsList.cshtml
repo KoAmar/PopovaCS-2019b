@@ -1,9 +1,13 @@
-﻿@model IList<Question>
+﻿@model IList<MainMVC.Models.Polls.Entities.Question>
 @{
     ViewData["Title"] = "QuestionsList";
 }
 
 <h1>QuestionsList</h1>
+@for (int question = 0; question < Model.Count; question++)
+{
+
+}
 @foreach (var question in Model)
 {
     <div class="card mt-3 mb-1">
@@ -23,7 +27,6 @@
                 @Html.ActionLink("Редактировать кол-вопросов", "EditNumberOfAnswers", "Home", new { questionId = question.Id })
                 @Html.ActionLink("Редактировать вопросы", "EditAnswers", "Home", new { questionId = question.Id })
             </div>
-
         </div>
     </div>
 }

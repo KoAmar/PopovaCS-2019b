@@ -1,4 +1,5 @@
 using MainMVC.Models.Polls;
+using MainMVC.Models.Polls.Entities;
 using MainMVC.Utilities;
 using Moq;
 using NUnit.Framework;

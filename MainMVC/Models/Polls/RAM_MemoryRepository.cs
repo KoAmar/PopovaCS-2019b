@@ -1,8 +1,7 @@
-﻿using MainMVC.Utilities;
-using System;
+﻿using MainMVC.Models.Polls.Entities;
+using MainMVC.Utilities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MainMVC.Models.Polls
 {
@@ -85,38 +84,9 @@ namespace MainMVC.Models.Polls
                 {
                     if (question.Id == questionChanges.Id)
                     {
-
-                        question.AnswersCount = questionChanges.AnswersCount;
-                        question.SoleAnswer = questionChanges.SoleAnswer;
-                        question.Text = questionChanges.Text;
-                        int loops = question.AnswersCount - question.PossibleAnswers.Count;
-                        if (loops > 0)
-                        {
-                            for (int num = 0; num < loops; num++)
-                            {
-                                question.PossibleAnswers.Add(new Answer());
-                            }
-                        }
-                        else
-                        {
-                            for (int num = 0; num < -loops; num++)
-                            {
-                                question.PossibleAnswers.RemoveAt(question.PossibleAnswers.Count - 1);
-                            }
-                        }
-                        loops = -1;
-                        if(question.PossibleAnswers.Count == questionChanges.PossibleAnswers.Count)
-                        {
-                            loops = questionChanges.AnswersCount;
-                        }
-                        for (int num = 0; num < loops; num++)
-                        {
-                            question.PossibleAnswers[num] = questionChanges.PossibleAnswers[num];
-                        }
-
+                        question.Update(questionChanges);
                     }
                 }
-
             }
             var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
             var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
@@ -141,12 +111,10 @@ namespace MainMVC.Models.Polls
                 }
             }
             return result;
-
         }
 
         public Answer UpdateAnswer(Answer answerChanges)
         {
-
             foreach (var poll in _polls)
             {
                 foreach (var question in poll.Questions)
@@ -155,8 +123,7 @@ namespace MainMVC.Models.Polls
                     {
                         if (answer.Id == answerChanges.Id)
                         {
-                            answer.Text = answerChanges.Text;
-                            answer.AnswerSelectedCounter = answerChanges.AnswerSelectedCounter;
+                            answer.Update(answerChanges);
                         }
                     }
                 }
