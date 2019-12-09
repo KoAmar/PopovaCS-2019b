@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainMVC.Models.Polls.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -32,15 +33,18 @@ namespace MainMVC.Models.Polls
         }
 
         public int Id { get; set; }
+
         [Required]
         public string Text { get; set; }
+
         [Required]
         public bool SoleAnswer { get; set; }
+
         [Required]
         [Range(1, 50)]
         public int AnswersCount { get; set; }
-        public IList<Answer> PossibleAnswers { get; set; }
 
+        public IList<Answer> PossibleAnswers { get; set; }
 
         public object Clone()
         {
@@ -50,7 +54,6 @@ namespace MainMVC.Models.Polls
                 possibleAnswers[num] = (Answer)PossibleAnswers[num].Clone();
             }
             return new Question(Id, Text, SoleAnswer, AnswersCount, possibleAnswers);
-
         }
     }
 }
