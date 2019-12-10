@@ -11,12 +11,12 @@ namespace NUnitTestProject1.Utilities
     [TestFixture]
     public class UtilForPollTests
     {
-        private List<Poll> mockRepository;
+        private List<Poll> _mockRepository;
 
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new List<Poll>(){
+            _mockRepository = new List<Poll>(){
                 new Poll(){
                     Id = 1,
                     Name = "First Poll",
@@ -46,7 +46,7 @@ namespace NUnitTestProject1.Utilities
         public void MaxQuestionId_emptyPoll_empty()
         {
             // Arrange
-            List<Poll> polls = mockRepository;
+            List<Poll> polls = _mockRepository;
             polls.Clear();
 
             // Act
@@ -60,7 +60,7 @@ namespace NUnitTestProject1.Utilities
         public void MaxQuestionId_emptyQuestion_empty()
         {
             // Arrange
-            List<Poll> polls = mockRepository;
+            List<Poll> polls = _mockRepository;
             polls[0].Questions.Clear();
 
             // Act
@@ -74,7 +74,7 @@ namespace NUnitTestProject1.Utilities
         public void MaxQuestionId_smallid_empty()
         {
             // Arrange
-            List<Poll> polls = mockRepository;
+            List<Poll> polls = _mockRepository;
 
             // Act
             var result = UtilForPoll.MaxQuestionId(polls);
@@ -87,7 +87,7 @@ namespace NUnitTestProject1.Utilities
         public void MaxQuestionId_normal_equal()
         {
             // Arrange
-            List<Poll> polls = mockRepository;
+            List<Poll> polls = _mockRepository;
             polls.Add(new Poll()
             {
                 Id = 1,
@@ -141,8 +141,8 @@ namespace NUnitTestProject1.Utilities
         public void SetIds_EmptyFor1_Empty()
         {
             // Arrange
-            mockRepository.Clear();
-            List<Poll> polls = mockRepository;
+            _mockRepository.Clear();
+            List<Poll> polls = _mockRepository;
             int maxQuestionId = 0;
             int maxAnswerId = 0;
 
@@ -160,8 +160,8 @@ namespace NUnitTestProject1.Utilities
         public void SetIds_EmptyFor2_Empty()
         {
             // Arrange
-            mockRepository[0].Questions.Clear();
-            List<Poll> polls = mockRepository;
+            _mockRepository[0].Questions.Clear();
+            List<Poll> polls = _mockRepository;
             int maxQuestionId = 0;
             int maxAnswerId = 0;
 
@@ -179,8 +179,8 @@ namespace NUnitTestProject1.Utilities
         public void SetIds_EmptyFor3_Empty()
         {
             // Arrange
-            mockRepository[0].Questions[0].PossibleAnswers.Clear();
-            List<Poll> polls = mockRepository;
+            _mockRepository[0].Questions[0].PossibleAnswers.Clear();
+            List<Poll> polls = _mockRepository;
             int maxQuestionId = 0;
             int maxAnswerId = 0;
 
@@ -198,7 +198,7 @@ namespace NUnitTestProject1.Utilities
         public void SetIds_if5_Equal1()
         {
             // Arrange
-            List<Poll> polls = mockRepository;
+            List<Poll> polls = _mockRepository;
             int maxQuestionId = 0;
             int maxAnswerId = 0;
 
@@ -216,7 +216,7 @@ namespace NUnitTestProject1.Utilities
         public void SetIds_if7_Equal2()
         {
             // Arrange
-            List<Poll> polls = mockRepository;
+            List<Poll> polls = _mockRepository;
             int maxQuestionId = 0;
             int maxAnswerId = 0;
 

@@ -60,7 +60,22 @@ namespace NUnitTestProject1.Models.Users
         }
 
         [Test]
-        public void Login_UnregistredLogin_Null()
+        public void StrongPasswordTest__1()
+        {
+            // Arrange
+            //var mockUserRepository = this.CreateMockUserRepository();
+            string password = "11$a11";
+
+            // Act
+            var result = MockUserRepository.StrongPassword(
+                password);
+
+            // Assert
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void Login_UnregisteredLogin_Null()
         {
             // Arrange
             var mockUserRepository = new MockUserRepository();

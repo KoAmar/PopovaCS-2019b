@@ -3,13 +3,18 @@
 @{
     ViewData["Title"] = "Test";
 }
+<style type="text/css">
+    .control-label {
+    }
+</style>
 
 <h1>Test</h1>
 
 <h4>Poll</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        @*@using (Html.BeginCollection("Poll"))*@
         <form asp-action="Test" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -38,6 +43,10 @@
                 <input asp-for="QuestionsCount" class="form-control" />
                 <span asp-validation-for="QuestionsCount" class="text-danger"></span>
             </div>
+            @foreach (var entry in Model.Questions)
+            {
+                @Html.Partial("_QuestionEditor", entry)
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -46,6 +55,5 @@
 </div>
 
 <div>
-    <h1>hui2</h1>
     @* <a asp-action="Index">Back to List</a> *@
 </div>

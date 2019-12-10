@@ -1,0 +1,24 @@
+﻿@model MainMVC.Models.Polls.Entities.Question
+
+<h4>Question</h4>
+<hr />
+@using (Html.BeginCollectionItem("Addresses"))
+{
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group">
+        <label asp-for="Text" class="control-label"></label>
+        <input asp-for="Text" class="form-control"/>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="SoleAnswer"/> @Html.DisplayNameFor(model => model.SoleAnswer)
+        </label>
+    </div>
+    <div class="form-group">
+        <label asp-for="AnswersCount" class="control-label"></label>
+        <input asp-for="AnswersCount" class="form-control"/>
+        <span asp-validation-for="AnswersCount" class="text-danger"></span>
+    </div>
+}
+

@@ -67,11 +67,11 @@ namespace MainMVC.Models.Users
             return result;
         }
 
-        public static int StrongPassword(string password)
+        public static bool StrongPassword(string password)
         {
-            int result = 0;
+            var result = 0;
 
-            if (password.Length >= 6)
+            if (password.Length >= 6 && password.Length <= 32)
             {
                 result++;
                 if (Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Success &&
@@ -84,7 +84,7 @@ namespace MainMVC.Models.Users
                     }
                 }
             }
-            return result;
+            return result>=3;
         }
 
         public bool IsValidLogin(string login)

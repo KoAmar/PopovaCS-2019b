@@ -16,5 +16,7 @@ namespace MainMVC.Models
         }
 
         public DbSet<Poll> Polls { get; set; }
+
+        public DbSet<MainMVC.Models.Polls.Entities.Question> Question { get; set; }
     }
 }

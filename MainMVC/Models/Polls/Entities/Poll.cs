@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace MainMVC.Models.Polls.Entities
 {
@@ -38,7 +39,7 @@ namespace MainMVC.Models.Polls.Entities
         public string Description { get; set; }
 
         public string CreatorLogin { get; set; }
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime CreationDate { get; set; }
 
         [Required]
         [Range(1, 100)]
@@ -48,11 +49,7 @@ namespace MainMVC.Models.Polls.Entities
 
         public object Clone()
         {
-            IList<Question> questionList = new List<Question>();
-            foreach (var question in Questions)
-            {
-                questionList.Add((Question)question.Clone());
-            }
+            IList<Question> questionList = Questions.Select(question => (Question) question.Clone()).ToList();
             return new Poll(Id, Name, Description, CreatorLogin, CreationDate, QuestionsCount, questionList);
         }
 
@@ -65,11 +62,11 @@ namespace MainMVC.Models.Polls.Entities
             CreationDate = poll.CreationDate;
             QuestionsCount = poll.QuestionsCount;
 
-            Questions.Clear();
+            Questions = new List<Question>(poll.Questions.Count);
 
-            foreach (var ans in poll.Questions)
+            foreach (var question in poll.Questions)
             {
-                Questions.Add((Question)ans.Clone());
+                Questions.Add((Question)question.Clone());
             }
         }
     }

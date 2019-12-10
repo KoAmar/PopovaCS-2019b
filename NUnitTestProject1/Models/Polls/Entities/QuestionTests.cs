@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using MainMVC.Models.Polls.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using MainMVC.Models.Polls;
+using MainMVC.Models.Polls.Entities;
+using NUnit.Framework;
 
-namespace MainMVC.Models.Polls.Entities.Tests
+namespace NUnitTestProject1.Models.Polls.Entities
 {
     [TestFixture()]
     public class QuestionTests
@@ -13,10 +13,9 @@ namespace MainMVC.Models.Polls.Entities.Tests
         public void UpdateTest()
         {
             var db = new RAM_MemoryRepository();
-            var old = (Question)db.GetQuestion(1).Clone();
-            Console.WriteLine(old.PossibleAnswers.Count);
+            var oldQuestion = (Question)db.GetQuestion(1).Clone();
 
-            var question = new Question()
+            var newQuestion = new Question()
             {
                 Id = 1,
                 Text = "Is this the real life?",
@@ -24,16 +23,22 @@ namespace MainMVC.Models.Polls.Entities.Tests
                 AnswersCount = 2,
                 PossibleAnswers = new List<Answer>()
                             {
-                                new Answer("Is this just fantasy?"){Id = 4 },
+                                new Answer("Is this just fantasy4?"){Id = 4 },
                                 new Answer("I'm just a poor boy"){Id = 5 }
                             }
             };
-            db.UpdateQuestion(question);
 
-            //var exp =
+            db.UpdateQuestion(newQuestion);
+
+            var actual = db.GetQuestion(1).PossibleAnswers[0].Text;
+            var expected = newQuestion.PossibleAnswers[0].Text;
+
+            Console.WriteLine(actual);
+            Console.WriteLine(expected);
+
 
             //Assert.AreEqual(db.GetQuestion(1).PossibleAnswers.Count, old.PossibleAnswers.Count);
-            Assert.AreNotEqual(db.GetQuestion(1).PossibleAnswers[0].Text, old.PossibleAnswers[0].Text);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MainMVC.Models.Polls
 
         public Poll GetPoll(int id)
         {
-            return _polls[id - 1];
+            return _polls.ElementAtOrDefault(id-1);
         }
 
         public IEnumerable<Poll> GetPolls()
@@ -38,20 +38,20 @@ namespace MainMVC.Models.Polls
 
         public Poll Update(Poll pollChanges)
         {
-            Poll poll = _polls.FirstOrDefault(e => e.Id == pollChanges.Id);
-            if (poll != null)
+            //var poll = _polls.FirstOrDefault(e => e.Id == pollChanges.Id);
+            foreach (var poll in _polls)
             {
-                poll.Name = pollChanges.Name;
-                poll.Description = pollChanges.Description;
-                poll.Questions = pollChanges.Questions;
-                poll.QuestionsCount = pollChanges.QuestionsCount;
+                if (poll.Id == pollChanges.Id)
+                {
+                    poll?.Update(pollChanges);
+                }
             }
-            return poll;
+            return pollChanges;
         }
 
-        public Poll Delete(int Id)
+        public Poll Delete(int id)
         {
-            Poll poll = _polls.FirstOrDefault(e => e.Id == Id);
+            Poll poll = _polls.FirstOrDefault(e => e.Id == id);
             if (poll != null)
             {
                 _polls.Remove(poll);
@@ -60,16 +60,16 @@ namespace MainMVC.Models.Polls
             ;
         }
 
-        public Question GetQuestion(int Id)
+        public Question GetQuestion(int id)
         {
             Question result = null;
             foreach (var poll in _polls)
             {
                 foreach (var question in poll.Questions)
                 {
-                    if (question.Id == Id)
+                    if (question.Id == id)
                     {
-                        result = question;
+                        result = (Question)question.Clone();
                     }
                 }
             }
@@ -94,7 +94,7 @@ namespace MainMVC.Models.Polls
             return questionChanges;
         }
 
-        public Answer GetAnswer(int Id)
+        public Answer GetAnswer(int id)
         {
             Answer result = null;
             foreach (var poll in _polls)
@@ -103,9 +103,9 @@ namespace MainMVC.Models.Polls
                 {
                     foreach (var answer in question.PossibleAnswers)
                     {
-                        if (answer.Id == Id)
+                        if (answer.Id == id)
                         {
-                            result = answer;
+                            result = (Answer)answer.Clone();
                         }
                     }
                 }
