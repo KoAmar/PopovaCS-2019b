@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MainMVC.Models.Users
 {
@@ -67,25 +64,6 @@ namespace MainMVC.Models.Users
             return result;
         }
 
-        public static bool StrongPassword(string password)
-        {
-            var result = 0;
-
-            if (password.Length >= 6 && password.Length <= 32)
-            {
-                result++;
-                if (Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Success &&
-                    Regex.Match(password, @"/[A-Z]/", RegexOptions.ECMAScript).Success)
-                {
-                    result++;
-                    if (Regex.Match(password, @"/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", RegexOptions.ECMAScript).Success)
-                    {
-                        result++;
-                    }
-                }
-            }
-            return result>=3;
-        }
 
         public bool IsValidLogin(string login)
         {

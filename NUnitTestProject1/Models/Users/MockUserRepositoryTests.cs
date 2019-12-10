@@ -2,6 +2,7 @@ using MainMVC.Models.Users;
 using Moq;
 using NUnit.Framework;
 using System;
+using MainMVC.Utilities;
 
 namespace NUnitTestProject1.Models.Users
 {
@@ -12,66 +13,6 @@ namespace NUnitTestProject1.Models.Users
         private MockUserRepository CreateMockUserRepository()
         {
             return new MockUserRepository();
-        }
-
-        [Test]
-        public void StrongPasswordTest_level1_Equal()
-        {
-            // Arrange
-            //var mockUserRepository = this.CreateMockUserRepository();
-            string password = "111111";
-
-            // Act
-            var result = MockUserRepository.StrongPassword(
-                password);
-
-            // Assert
-            Assert.AreEqual(1, result);
-        }
-
-        [Test]
-        public void StrongPasswordTest_level2_Equal()
-        {
-            // Arrange
-            //var mockUserRepository = this.CreateMockUserRepository();
-            string password = "11s111";
-
-            // Act
-            var result = MockUserRepository.StrongPassword(
-                password);
-
-            // Assert
-            Assert.AreEqual(1, result);
-        }
-
-        [Test]
-        public void StrongPasswordTest_level3_Equal()
-        {
-            // Arrange
-            //var mockUserRepository = this.CreateMockUserRepository();
-            string password = "11$a11";
-
-            // Act
-            var result = MockUserRepository.StrongPassword(
-                password);
-
-            // Assert
-            Assert.AreEqual(1, result);
-        }
-
-        [Test]
-        public void StrongPasswordTest__1()
-        {
-            // Arrange
-            //var mockUserRepository = this.CreateMockUserRepository();
-            string password = "11$a11";
-
-            // Act
-            var result = MockUserRepository.StrongPassword(
-                password);
-
-            // Assert
-            Assert.AreEqual(1, result);
         }
 
         [Test]

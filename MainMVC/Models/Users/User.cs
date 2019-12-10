@@ -36,9 +36,8 @@ namespace MainMVC.Models.Users
 
         public override bool Equals(object obj)
         {
-            if (obj is User)
+            if (obj is User that)
             {
-                var that = obj as User;
                 return Id == that.Id && Login == that.Login && Email == that.Email && Role == that.Role && PasswordHash == that.PasswordHash;
             }
 
