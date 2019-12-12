@@ -41,8 +41,8 @@ namespace MainMVC.Models.Polls.Entities
         public string CreatorLogin { get; set; }
         public DateTime CreationDate { get; set; }
 
-        [Required]
-        [Range(1, 100)]
+        //[Required]
+        //[Range(1, 100)]
         public int QuestionsCount { get; set; }
 
         public IList<Question> Questions { get; set; }

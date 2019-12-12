@@ -29,7 +29,6 @@ namespace NUnitTestProject1.Utilities
                             Id = 0,
                             Text = "Is this the real life?",
                             SoleAnswer = true,
-                            AnswersCount = 3,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy?"){Id = 0 },
@@ -101,7 +100,6 @@ namespace NUnitTestProject1.Utilities
                             Id = 5,
                             Text = "Is this the real life?",
                             SoleAnswer = true,
-                            AnswersCount = 3,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy?"){Id = 0 },

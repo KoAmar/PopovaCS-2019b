@@ -11,7 +11,6 @@ namespace MainMVC.Utilities
     {
         public static List<Poll> SetIds(List<Poll> polls, int maxQuestionId, int maxAnswerId)
         {
-            //отсуствовала проверка на null
             if (polls != null)
             {
                 foreach (var poll in polls)
@@ -36,7 +35,7 @@ namespace MainMVC.Utilities
             {
                 foreach (var question in poll.Questions)
                 {
-                    int id = question.Id;
+                    int id = question.Id; 
                     if (id > result) { result = id; }
                 }
             }

@@ -11,7 +11,7 @@
 
 <form asp-controller="home" asp-action="CreatePoll" method="post" class="mt-3">
 
-    @for (int questionNum = 0; questionNum < Model.Questions.Count; questionNum++)
+    @for (var questionNum = 0; questionNum < Model.Questions.Count; questionNum++)
     {
         <div class="card mt-3 mb-1">
             <div class="card-body">
@@ -20,17 +20,18 @@
                     @for (int answerNum = 0; answerNum < Model.Questions[questionNum].PossibleAnswers.Count; answerNum++)
                     {
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            @*<div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <input type="radio" value="@Model.Questions[questionNum].PossibleAnswers[answerNum].AnswerSelected">
                                 </div>
-                            </div>
+                            </div>*@
                             @*<input type="text" class="form-control" aria-label="Text input with radio button">*@
                             <a class="form-control">@Model.Questions[questionNum].PossibleAnswers[answerNum].Text</a>
                         </div>
                         @*<input type="checkbox" asp-for="@answer.AnswerSelected" />*@
                     }
                 </div>
+                <div>SoleAnswer @Model.Questions[questionNum].SoleAnswer</div>
             </div>
         </div>
 

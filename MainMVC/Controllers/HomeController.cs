@@ -137,11 +137,11 @@ namespace MainMVC.Controllers
         [HttpPost]
         public IActionResult Test(Poll question)
         {
+            var a = _pollRepository.Update(question);
+            return RedirectToAction("");
             if (ModelState.IsValid)
             {
-                var a = _pollRepository.Update(question);
 
-                return RedirectToAction("");
             }
             return View(question);
         }

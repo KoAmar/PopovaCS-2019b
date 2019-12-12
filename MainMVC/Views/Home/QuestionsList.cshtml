@@ -15,7 +15,7 @@
             <h6 class="card-title">
                 @(Model.IndexOf(question) + 1). @question.Text
             </h6>
-            <p class="ml-1">AnswersCount: @question.AnswersCount</p>
+            <p class="ml-1">@*AnswersCount: @question.AnswersCount*@</p>
             <ul class="list-group">
                 @foreach (var answer in question.PossibleAnswers)
                 {

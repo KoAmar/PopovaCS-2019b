@@ -20,7 +20,6 @@ namespace NUnitTestProject1.Models.Polls.Entities
                 Id = 1,
                 Text = "Is this the real life?",
                 SoleAnswer = true,
-                AnswersCount = 2,
                 PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy4?"){Id = 4 },
