@@ -25,9 +25,9 @@ namespace MainMVC.Models.Polls
                             SoleAnswer = true,
                             PossibleAnswers = new List<Answer>()
                             {
-                                new Answer("Is this justы fantasy?"){Id = 1 },
-                                new Answer("I'm just a poor boy"){Id = 2 },
-                                new Answer("I don't wanna die"){Id = 3 }
+                                new Answer("Is this justы fantasy?"){Id = 1},
+                                new Answer("I'm just a poor boy"){Id = 2,AnswerSelectedCounter = 2 },
+                                new Answer("I don't wanna die"){Id = 3,AnswerSelectedCounter = 3 }
                             }
                         },
                         new Question(){

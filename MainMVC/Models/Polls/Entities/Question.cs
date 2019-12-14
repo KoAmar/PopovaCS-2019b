@@ -38,6 +38,20 @@ namespace MainMVC.Models.Polls.Entities
         //[Required]
         public bool SoleAnswer { get; set; }
 
+        public int TotalAnswered
+        {
+            get
+            {
+                var result = 0;
+                foreach (var possibleAnswer in PossibleAnswers)
+                {
+                    result += possibleAnswer.AnswerSelectedCounter;
+                }
+                return result;
+            }
+
+        }
+
         public IList<Answer> PossibleAnswers { get; set; }
 
         public object Clone()

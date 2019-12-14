@@ -32,6 +32,17 @@ namespace MainMVC.Models.Polls.Entities
         public bool AnswerSelected { get; set; }
         public int AnswerSelectedCounter { get; set; }
 
+        public double CountPercent(int total)
+        {
+            double result = 0;
+            if (total!=0)
+            {
+                result = ((float)AnswerSelectedCounter / (float)total) * 100;//%
+                result = Math.Round(result, 2);
+            }
+            return result;
+        }
+
         public object Clone() => new Answer(Id, Text, AnswerSelectedCounter);
 
         public void Update(Answer answerChanges)

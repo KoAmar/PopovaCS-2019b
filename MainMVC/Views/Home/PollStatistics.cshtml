@@ -1,0 +1,49 @@
+@model MainMVC.Models.Polls.Entities.Poll
+
+@{
+    ViewData["Title"] = "PollStatistics";
+}
+<div class="jumbotron">
+    <h3>@Model.Name</h3>
+    <h6>@Model.Description</h6>
+    <p><em>Created by @Model.CreatorLogin on @Model.CreationDate</em></p>
+</div>
+
+@*<form asp-controller="home" asp-action="CreatePoll" method="post" class="mt-3">*@
+
+@for (var qNum = 0; qNum < Model.Questions.Count; qNum++)
+{
+    <div class="card mt-3 mb-1">
+        <div class="card-body">
+            <h5 class="card-title">
+                @(Model.Questions.IndexOf(Model.Questions[qNum]) + 1).
+                @Model.Questions[qNum].Text
+                (Total Answers :@Model.Questions[qNum].TotalAnswered)
+            </h5>
+            <div class="list-group">
+                @for (var aNum = 0; aNum < Model.Questions[qNum].PossibleAnswers.Count; aNum++)
+                {
+
+                    <label>
+                        @Model.Questions[qNum].PossibleAnswers[aNum].Text
+                    </label>
+
+                    <div class="progress">
+                        <div class="progress-bar"
+                             style="width: @Model.Questions[qNum].PossibleAnswers[aNum].CountPercent(
+                                               Model.Questions[qNum].TotalAnswered)%">
+                            @Model.Questions[qNum].PossibleAnswers[aNum].CountPercent(
+                                Model.Questions[qNum].TotalAnswered)%
+                        </div>
+                    </div>
+                }
+            </div>
+            <a>SoleAnswer @Model.Questions[qNum].SoleAnswer</a>
+        </div>
+    </div>
+
+}
+<div class="form-group row justify-content-center mt-2">
+    <button type="submit" class="btn btn-primary">Ok</button>
+</div>
+@*</form>*@
