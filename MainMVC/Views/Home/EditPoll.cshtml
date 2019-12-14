@@ -1,13 +1,13 @@
 ﻿@model MainMVC.Models.Polls.Entities.Poll
 
 @{
-    ViewData["Title"] = "Test";
+    ViewData["Title"] = "EditPoll";
 }
-<h1>Test</h1>
+<h1>EditPoll</h1>
 
 <div class="row justify-content-center">
     <div class="col-md-10">
-        @using (Html.BeginForm("Test", "Home", FormMethod.Post))
+        @using (Html.BeginForm("EditPoll", "Home", FormMethod.Post))
         {
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -31,36 +31,6 @@
                 <input asp-for="CreationDate" class="form-control" />
                 <span asp-validation-for="CreationDate" class="text-danger"></span>
             </div>
-            @*@foreach (var question in Model.Questions)
-                {
-                    <div class="card card-body my-1">
-                        <div class="form-group">
-                            <label asp-for="@question.Text" class="control-label"></label>
-                            <input asp-for="@question.Text" class="form-control" />
-                            <span asp-validation-for="@question.Text" class="text-danger"></span>
-                        </div>
-
-                        $1$<div class="form-group">
-                                <label asp-for="@question.SoleAnswer" class="control-label"></label>
-                                <input type="checkbox" asp-for="@question.SoleAnswer" class="form-control" />
-                                <span asp-validation-for="@question.SoleAnswer" class="text-danger"></span>
-                            </div>#1#
-                        <div class="card card-body my-1">
-                            @foreach (var answer in question.PossibleAnswers)
-                            {
-                                <div class="form-group">
-                                    <label asp-for="@answer.Text" class="control-label"></label>
-                                    <input asp-for="@answer.Text" class="form-control" />
-                                    <span asp-validation-for="@answer.Text" class="text-danger"></span>
-                                </div>
-                            }
-                        </div>
-                        $1$<div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" asp-for="@question.SoleAnswer">
-                            <label class="custom-control-label" asp-for="@question.SoleAnswer"></label>
-                        </div>#1#
-                    </div>
-                }*@
             @for (var question = 0; question < Model.Questions.Count; question++)
             {
                 <div class="card card-body my-1">

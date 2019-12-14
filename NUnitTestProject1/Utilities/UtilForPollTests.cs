@@ -23,7 +23,6 @@ namespace NUnitTestProject1.Utilities
                     CreatorLogin = "Pavlik",
                     Description = "Some quick example text to build on the card title and make up the bulk of the card's content.",
                     CreationDate = default,
-                    QuestionsCount = 1,
                     Questions = new List<Question>(){
                         new Question(){
                             Id = 0,
@@ -94,7 +93,6 @@ namespace NUnitTestProject1.Utilities
                 CreatorLogin = "Pavlik",
                 Description = "Some quick example text to build on the card title and make up the bulk of the card's content.",
                 CreationDate = default,
-                QuestionsCount = 1,
                 Questions = new List<Question>(){
                         new Question(){
                             Id = 5,

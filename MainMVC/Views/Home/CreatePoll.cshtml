@@ -3,21 +3,18 @@
     ViewData["Title"] = "Poll Create";
 }
 
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
 <form asp-controller="home" asp-action="CreatePoll" method="post" class="mt-3">
+    @*<input type="hidden" asp-for="Id" />*@
     <div class="form-group">
-        <label>Name:</label>
+        <label asp-for="Name">Name of the Poll:</label>
+        <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
-        <input asp-for="Name" class="form-control" placeholder="Name of the Poll" />
     </div>
     <div class="form-group">
-        <label>Description:</label>
+        <label asp-for="Description">Description of the Poll:</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
-        <textarea asp-for="Description" class="form-control" placeholder="Description of the Poll"></textarea>
-    </div>
-    <div class="form-group">
-        <label>QuestionsCount:</label>
-        <span asp-validation-for="QuestionsCount" class="text-danger"></span>
-        <input asp-for="QuestionsCount" class="form-control" placeholder="Questions Count">
     </div>
     <div class="form-group row justify-content-center">
         <button type="submit" class="btn btn-primary">Create</button>

@@ -1,4 +1,5 @@
-﻿using MainMVC.Models;
+﻿using System;
+using MainMVC.Models;
 using MainMVC.Models.Polls;
 
 using MainMVC.Models.Users;
@@ -9,6 +10,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using MainMVC.Models.Polls.Entities;
+using MainMVC.Utilities;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
 namespace MainMVC.Controllers
 {
@@ -50,100 +53,49 @@ namespace MainMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreatePoll()
-        {
-            return View();
-        }
+        public IActionResult CreatePoll() => View();
 
         [HttpPost]
         public IActionResult CreatePoll(Poll poll)
         {
+            IActionResult result = View();
             if (ModelState.IsValid)
             {
-                for (int num = 1; num < poll.QuestionsCount + 1; num++)
-                {
-                    poll.Questions.Add(new Question());
-                }
-                var newPoll = _pollRepository.Add(poll);
-                HttpContext.Session.SetInt32("CurrentPoll", poll.Id);
-                return RedirectToAction("QuestionsList", new { pollId = newPoll.Id });
+                //TODO Login Of creator
+                poll.CreatorLogin = "Controller";
+                TempData.Put("poll", poll);
+                result = RedirectToAction("EditPoll");
             }
-            return View();
-        }
-
-        public IActionResult QuestionsList(int pollId)
-        {
-            var poll = _pollRepository.GetPoll(pollId);
-            HttpContext.Session.SetInt32("CurrentPoll", poll.Id);
-            var model = poll.Questions;
-            return View(model);
+            return result;
         }
 
         [HttpGet]
-        public IActionResult EditNumberOfAnswers(int questionId)
+        public IActionResult EditPoll()
         {
-            Question model = _pollRepository.GetQuestion(questionId);
-            HttpContext.Session.SetInt32("CurrentQuestion", questionId);
-            //HttpContext.Session.GetInt32("CurrentPoll");
-            //Response.Cookies.Append("CurrentQuestion", model.Id.ToString());
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult EditNumberOfAnswers(Question question)
-        {
-            if (ModelState.IsValid)
+            var poll = TempData.Get<Poll>("poll");
+            IActionResult result = View(poll);
+            if (poll == null)
             {
-                int? currentPoll = HttpContext.Session.GetInt32("CurrentPoll");
-                int? Id = HttpContext.Session.GetInt32("CurrentQuestion");
-                question.Id = (int)Id;
-                _pollRepository.UpdateQuestion(question);
-
-                return RedirectToAction("QuestionsList", new { pollId = currentPoll });
-            }
-            return View(question);
-        }
-
-        //TODO add support of Answer Editing
-        [HttpGet]
-        public IActionResult EditAnswers(int questionId)
-        {
-            var model = _pollRepository.GetQuestion(questionId);
-
-            //return View(model);
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult EditAnswers(Question question)
-        {
-            int? currentPoll = HttpContext.Session.GetInt32("CurrentPoll");
-
-            _pollRepository.UpdateQuestion(question);
-
-            //return View(model);
-            return RedirectToAction("QuestionsList", new { pollId = currentPoll });
-        }
-
-        [HttpGet]
-        public IActionResult Test()
-        {
-            var model = _pollRepository.GetPoll(1);
-
-            //return View(model);
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Test(Poll question)
-        {
-            var a = _pollRepository.Update(question);
-            return RedirectToAction("");
-            if (ModelState.IsValid)
-            {
+                result = NotFound();
 
             }
-            return View(question);
+            return result;
+        }
+
+        [HttpPost]
+        public IActionResult EditPoll(Poll poll)
+        {
+            Poll resultPoll;
+            if (_pollRepository.GetPoll(poll.Id) != null)
+            {
+                resultPoll = _pollRepository.Update(poll);
+            }
+            else
+            {
+                resultPoll = _pollRepository.Add(poll);
+            }
+            return RedirectToAction("ViewPoll", "Home", new { id = resultPoll.Id });
+            //return RedirectToAction("PollsList");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -9,7 +9,7 @@
     <p><em>Created by @Model.CreatorLogin on @Model.CreationDate</em></p>
 </div>
 
-<form asp-controller="home" asp-action="CreatePoll" method="post" class="mt-3">
+@*<form asp-controller="home" asp-action="CreatePoll" method="post" class="mt-3">*@
 
     @for (var questionNum = 0; questionNum < Model.Questions.Count; questionNum++)
     {
@@ -17,7 +17,7 @@
             <div class="card-body">
                 <h5 class="card-title">@(Model.Questions.IndexOf(Model.Questions[questionNum]) + 1). @Model.Questions[questionNum].Text</h5>
                 <div class="list-group">
-                    @for (int answerNum = 0; answerNum < Model.Questions[questionNum].PossibleAnswers.Count; answerNum++)
+                    @for (var answerNum = 0; answerNum < Model.Questions[questionNum].PossibleAnswers.Count; answerNum++)
                     {
                         <div class="input-group">
                             @*<div class="input-group-prepend">
@@ -39,4 +39,4 @@
     <div class="form-group row justify-content-center mt-2">
         <button type="submit" class="btn btn-primary">Ok</button>
     </div>
-</form>
+@*</form>*@
