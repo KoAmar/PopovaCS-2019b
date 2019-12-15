@@ -42,9 +42,11 @@ namespace MainMVC.Models.Polls.Entities
 
         public IList<Question> Questions { get; set; }
 
+        public  IList<Question> GetListCopy()=> Questions.Select(question => (Question) question.Clone()).ToList();
+
         public object Clone()
         {
-            IList<Question> questionList = Questions.Select(question => (Question) question.Clone()).ToList();
+            var questionList = GetListCopy();
             return new Poll(Id, Name, Description, CreatorLogin, CreationDate, questionList);
         }
 

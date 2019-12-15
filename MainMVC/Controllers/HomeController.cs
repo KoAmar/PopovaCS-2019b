@@ -51,8 +51,26 @@ namespace MainMVC.Controllers
             {
                 //TODO Login Of creator
                 poll.CreatorLogin = "Controller";
-                HttpContext.Session.Put("poll", poll);
-                //TempData.Put("poll", poll);
+                poll.Questions = new List<Question>()
+                {
+                    new Question()
+                    {
+                        PossibleAnswers = new List<Answer>()
+                        {
+                            new Answer(), new Answer(), new Answer()
+                        }
+                    },
+                    new Question()
+                    {
+                        PossibleAnswers = new List<Answer>()
+                        {
+                            new Answer(), new Answer(), new Answer()
+                        }
+                    }
+                };
+
+                var newPoll = _pollRepository.Add(poll);
+                HttpContext.Session.Put("poll", newPoll);
                 result = RedirectToAction("EditPoll");
             }
 
@@ -65,16 +83,9 @@ namespace MainMVC.Controllers
             IActionResult result = NotFound();
             var poll = HttpContext.Session.Get<Poll>("poll");
 
-            //var tempData = (Poll)Data.GetData()[0].Clone();
             if (poll != null)
             {
-                poll.Questions = new List<Question>()
-                    {
-                        new Question(){PossibleAnswers = new List<Answer>(){new Answer(),new Answer(),new Answer()}}
-                    };
-
                 result = View(poll);
-
             }
             return result;
         }
@@ -89,16 +100,18 @@ namespace MainMVC.Controllers
             else
                 resultPoll = _pollRepository.Add(poll);
             HttpContext.Session.Remove("poll");
-            //HttpContext.Session.Get<Poll>("")
             return RedirectToAction("PollStatistics", "Home", new { id = resultPoll.Id });
-            //return RedirectToAction("PollsList");
         }
 
         public IActionResult DeleteQuestion(int questionId)
         {
             var poll = HttpContext.Session.Get<Poll>("poll");
-            poll.Questions.Remove(poll.Questions.Single(q => q.Id == questionId));
-            HttpContext.Session.Put("poll",poll);
+            poll.Questions = poll.Questions.Where(x => x.Id != questionId).ToList();
+            //var tempPoll = new Poll {Questions = tempQuestions};
+            //poll.Questions = tempPoll.GetListCopy();
+            var newPoll = _pollRepository.Update(poll);
+            HttpContext.Session.Put("poll", newPoll);
+
             return RedirectToAction("EditPoll");
         }
 
