@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using MainMVC.Models.Users;
 using MainMVC.Utilities;
 using NUnit.Framework;
 
-namespace NUnitTestProject1.Utilities
+namespace NUnitTestProject.Utilities
 {
     [TestFixture()]
     public class UserUtilsTests

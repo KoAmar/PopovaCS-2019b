@@ -1,12 +1,8 @@
 using MainMVC.Models.Users;
-using Moq;
-using NUnit.Framework;
-using System;
-using MainMVC.Utilities;
+using Xunit;
 
-namespace NUnitTestProject1.Models.Users
+namespace XUnitTestProject.Models.Users
 {
-    [TestFixture]
     public class MockUserRepositoryTests
     {
 
@@ -15,7 +11,7 @@ namespace NUnitTestProject1.Models.Users
             return new MockUserRepository();
         }
 
-        [Test]
+        [Fact]
         public void Login_UnregisteredLogin_Null()
         {
             // Arrange
@@ -41,7 +37,7 @@ namespace NUnitTestProject1.Models.Users
             Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Login_badLogin_Equal()
         {
             // Arrange
@@ -67,7 +63,7 @@ namespace NUnitTestProject1.Models.Users
             Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Login_emptyUsers_Null()
         {
             // Arrange
@@ -85,7 +81,7 @@ namespace NUnitTestProject1.Models.Users
             Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Login_normal_Equal()
         {
             // Arrange
@@ -108,7 +104,7 @@ namespace NUnitTestProject1.Models.Users
                 password);
 
             // Assert
-            Assert.AreEqual(user, result);
+            Assert.Equal(user, result);
         }
 
     }

@@ -1,12 +1,9 @@
-using MainMVC.Models.Polls;
+using System.Collections.Generic;
 using MainMVC.Models.Polls.Entities;
 using MainMVC.Utilities;
-using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
-namespace NUnitTestProject1.Utilities
+namespace NUnitTestProject.Utilities
 {
     [TestFixture]
     public class UtilForPollTests

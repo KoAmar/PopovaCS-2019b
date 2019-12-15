@@ -4,7 +4,7 @@ using MainMVC.Models.Polls;
 using MainMVC.Models.Polls.Entities;
 using NUnit.Framework;
 
-namespace NUnitTestProject1.Models.Polls.Entities
+namespace NUnitTestProject.Models.Polls.Entities
 {
     [TestFixture()]
     public class QuestionTests

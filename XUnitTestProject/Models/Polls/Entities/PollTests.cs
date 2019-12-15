@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using MainMVC.Models.Polls;
 using MainMVC.Models.Polls.Entities;
-using NUnit.Framework;
+using Xunit;
+using Xunit.Abstractions;
 
-namespace NUnitTestProject1.Models.Polls.Entities
+namespace XUnitTestProject.Models.Polls.Entities
 {
-    [TestFixture()]
     public class PollTests
     {
-        [Test()]
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public PollTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
+        [Fact]
         public void UpdateTest()
         {
             var db = new RAM_MemoryRepository();
@@ -42,17 +49,17 @@ namespace NUnitTestProject1.Models.Polls.Entities
             var expected = newPoll.Questions[0];
             var result = db.GetPoll(2).Questions[0];
 
-            Console.WriteLine(expected.Id);
-            Console.WriteLine(expected.Text);
-            Console.WriteLine(expected.PossibleAnswers[0].Text);
-            Console.WriteLine(expected);
-            Console.WriteLine(result.Id);
-            Console.WriteLine(result.Text);
-            Console.WriteLine(result.PossibleAnswers[0].Text);
-            Console.WriteLine(result);
+            _testOutputHelper.WriteLine(expected.Id.ToString());
+            _testOutputHelper.WriteLine(expected.Text);
+            _testOutputHelper.WriteLine(expected.PossibleAnswers[0].Text);
+            _testOutputHelper.WriteLine(expected.ToString());
+            _testOutputHelper.WriteLine(result.Id.ToString());
+            _testOutputHelper.WriteLine(result.Text);
+            _testOutputHelper.WriteLine(result.PossibleAnswers[0].Text);
+            _testOutputHelper.WriteLine(result.ToString());
 
             //Assert.AreEqual(db.GetQuestion(1).PossibleAnswers.Count, old.PossibleAnswers.Count);
-            Assert.AreEqual(expected.Text, result.Text);
+            Assert.Equal(expected.Text, result.Text);
         }
     }
 }
