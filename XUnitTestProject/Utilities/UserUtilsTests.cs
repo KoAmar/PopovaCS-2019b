@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using MainMVC.Utilities;
+using MainMVC.Utilities.Models;
 using Xunit;
 
 namespace XUnitTestProject.Utilities

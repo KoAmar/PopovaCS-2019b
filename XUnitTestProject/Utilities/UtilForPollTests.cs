@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using MainMVC.Models.Polls.Entities;
-using MainMVC.Utilities;
+using MainMVC.Utilities.Models;
 using Xunit;
 
 namespace XUnitTestProject.Utilities

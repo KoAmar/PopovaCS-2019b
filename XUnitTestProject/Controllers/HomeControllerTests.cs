@@ -6,7 +6,12 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using MainMVC.Models.Polls.Entities;
+using MainMVC.Utilities;
+using MainMVC.Utilities.Controller;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace XUnitTestProject.Controllers
@@ -35,10 +40,17 @@ namespace XUnitTestProject.Controllers
 
         private HomeController CreateHomeController()
         {
-            return new HomeController(
+            var controller = new HomeController(
                 mockLogger.Object,
                 mockPollRepository.Object,
-                mockUserRepository.Object);
+                mockUserRepository.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() {Session = new MockHttpSession()}
+                }
+            };
+            return controller;
         }
 
         [Fact]
@@ -67,15 +79,15 @@ namespace XUnitTestProject.Controllers
             int id = 0;
 
             // Act
-            var result = homeController.PollStatistics(
-                id);
+            //var result = homeController.PollStatistics(
+            //    id);
 
             // Assert
             Assert.True(false);
         }
 
         [Fact]
-        public void CreatePoll_StateUnderTest_ExpectedBehavior()
+        public void CreatePollGET_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
             var homeController = CreateHomeController();
@@ -88,22 +100,23 @@ namespace XUnitTestProject.Controllers
         }
 
         [Fact]
-        public void CreatePoll_StateUnderTest_ExpectedBehavior1()
+        public void CreatePollPOST_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
+
             var homeController = CreateHomeController();
-            Poll poll = null;
+            var poll = new Poll(3, "3", "d3",
+                "Test", DateTime.Now, new List<Question>());
 
             // Act
-            var result = homeController.CreatePoll(
-                poll);
+            var result = homeController.CreatePoll(poll);
 
             // Assert
-            Assert.True(false);
+            Assert.IsType<RedirectToActionResult>(result);
         }
 
         [Fact]
-        public void EditPoll_StateUnderTest_ExpectedBehavior()
+        public void EditPollGET_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
             var homeController = CreateHomeController();
@@ -116,7 +129,7 @@ namespace XUnitTestProject.Controllers
         }
 
         [Fact]
-        public void EditPoll_StateUnderTest_ExpectedBehavior1()
+        public void EditPollPOST_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
             var homeController = CreateHomeController();
@@ -131,16 +144,24 @@ namespace XUnitTestProject.Controllers
         }
 
         [Fact]
-        public void Error_StateUnderTest_ExpectedBehavior()
+        public void DeleteQuestion_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
             var homeController = CreateHomeController();
+            mockPollRepository.Setup(
+                    repo => repo.GetPoll(1 ))
+                .Returns(Data.GetData()[0]);
+
+
+            homeController.ControllerContext.HttpContext.Session.Put("poll",Data.GetData()[0]);
 
             // Act
-            var result = homeController.Error();
+            homeController.DeleteQuestion(1);
 
             // Assert
-            Assert.True(false);
+
+            var result = homeController.HttpContext.Session.Get<Poll>("poll");
+            Assert.Equal(1, result.Questions.Count);
         }
     }
 }

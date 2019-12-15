@@ -11,6 +11,8 @@
         {
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input asp-for="CreatorLogin" type="hidden" />
+            <input asp-for="CreationDate" type="hidden" />
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" />
@@ -20,16 +22,6 @@
                 <label asp-for="Description"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatorLogin"></label>
-                <input asp-for="CreatorLogin" class="form-control" />
-                <span asp-validation-for="CreatorLogin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreationDate"></label>
-                <input asp-for="CreationDate" class="form-control" />
-                <span asp-validation-for="CreationDate" class="text-danger"></span>
             </div>
             @for (var question = 0; question < Model.Questions.Count; question++)
             {
@@ -43,6 +35,8 @@
 
                         @for (var answer = 0; answer < Model.Questions[question].PossibleAnswers.Count; answer++)
                         {
+                            <input asp-for="@Model.Questions[question].PossibleAnswers[answer].AnswerSelectedCounter"
+                                   type="hidden" />
                             <div class="form-group">
                                 <label asp-for="@Model.Questions[question].PossibleAnswers[answer].Text"></label>
                                 <input asp-for="@Model.Questions[question].PossibleAnswers[answer].Text" class="form-control" />

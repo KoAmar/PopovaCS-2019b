@@ -2,6 +2,7 @@
 using MainMVC.Utilities;
 using System.Collections.Generic;
 using System.Linq;
+using MainMVC.Utilities.Models;
 
 namespace MainMVC.Models.Polls
 {
@@ -26,8 +27,8 @@ namespace MainMVC.Models.Polls
 
         public Poll Add(Poll poll)
         {
-            var Id = _polls.Max(e => e.Id) + 1;
-            poll.Id = Id;
+            var id = _polls.Max(e => e.Id) + 1;
+            poll.Id = id;
             _polls.Add(poll);
 
             var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
