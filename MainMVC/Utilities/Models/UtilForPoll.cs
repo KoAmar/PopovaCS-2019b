@@ -6,7 +6,7 @@ namespace MainMVC.Utilities.Models
 {
     public static class UtilForPoll
     {
-        public static List<Poll> SetIds(List<Poll> polls, int maxQuestionId, int maxAnswerId)
+        public static List<Poll> SetIds(this List<Poll> polls, int maxQuestionId, int maxAnswerId)
         {
             if (polls != null)
             {

@@ -35,11 +35,19 @@ namespace XUnitTestProject
         }
         bool ISession.TryGetValue(string key, out byte[] value)
         {
-            if (_sessionStorage[key] != null)
+            try
             {
-                value = Encoding.ASCII.GetBytes(_sessionStorage[key].ToString());
-                return true;
+                if (_sessionStorage[key] != null)
+                {
+                    value = Encoding.ASCII.GetBytes(_sessionStorage[key].ToString());
+                    return true;
+                }
             }
+            catch (System.Collections.Generic.KeyNotFoundException e)
+            {
+                Console.WriteLine(e);
+            }
+            
             value = null;
             return false;
         }

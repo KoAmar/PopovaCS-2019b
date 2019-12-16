@@ -18,22 +18,23 @@ namespace XUnitTestProject.Controllers
 {
     public class HomeControllerTests : IDisposable
     {
+        private readonly MockRepository _mockRepository;
         private readonly Mock<ILogger<HomeController>> _mockLogger;
         private readonly Mock<IPollRepository> _mockPollRepository;
         private readonly Mock<IUserRepository> _mockUserRepository;
 
         public HomeControllerTests()
         {
-            var mockRepository = new MockRepository(MockBehavior.Strict);
+            _mockRepository = new MockRepository(MockBehavior.Strict);
 
-            _mockLogger = mockRepository.Create<ILogger<HomeController>>();
-            _mockPollRepository = mockRepository.Create<IPollRepository>();
-            _mockUserRepository = mockRepository.Create<IUserRepository>();
+            _mockLogger = _mockRepository.Create<ILogger<HomeController>>();
+            _mockPollRepository = _mockRepository.Create<IPollRepository>();
+            _mockUserRepository = _mockRepository.Create<IUserRepository>();
         }
 
         public void Dispose()
         {
-            //mockRepository.VerifyAll();
+            //_mockRepository.VerifyAll();
         }
 
         private HomeController CreateHomeController()
@@ -45,14 +46,14 @@ namespace XUnitTestProject.Controllers
             {
                 ControllerContext = new ControllerContext
                 {
-                    HttpContext = new DefaultHttpContext() {Session = new MockHttpSession()}
+                    HttpContext = new DefaultHttpContext() { Session = new MockHttpSession() }
                 }
             };
             return controller;
         }
 
         [Fact]
-        public void PollsList_StateUnderTest_ExpectedBehavior()
+        public void PollsList_IsPollList_FistPollName()
         {
             // Arrange
             var homeController = CreateHomeController();
@@ -65,92 +66,91 @@ namespace XUnitTestProject.Controllers
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var polls = Assert.IsType<List<Poll>>(viewResult.Model);
-            //Assert.Equal(2, polls.Count);
             Assert.Equal("First Poll", polls[0].Name);
         }
 
+        //[Fact]
+        //public void PollStatistics_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    var homeController = CreateHomeController();
+        //    int id = 0;
+
+        //    // Act
+        //    //var result = homeController.PollStatistics(
+        //    //    id);
+
+        //    // Assert
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void CreatePollGET_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    var homeController = CreateHomeController();
+
+        //    // Act
+        //    var result = homeController.CreatePoll();
+
+        //    // Assert
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void CreatePollPOST_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+
+        //    var homeController = CreateHomeController();
+        //    var poll = new Poll(3, "3", "d3",
+        //        "Test", DateTime.Now, new List<Question>());
+
+        //    // Act
+        //    var result = homeController.CreatePoll(poll);
+
+        //    // Assert
+        //    Assert.IsType<RedirectToActionResult>(result);
+        //}
+
+        //[Fact]
+        //public void EditPollGET_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    var homeController = CreateHomeController();
+
+        //    // Act
+        //    var result = homeController.EditPoll();
+
+        //    // Assert
+        //    Assert.True(false);
+        //}
+
+        //[Fact]
+        //public void EditPollPOST_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    var homeController = CreateHomeController();
+        //    Poll poll = null;
+
+        //    // Act
+        //    var result = homeController.EditPoll(
+        //        poll);
+
+        //    // Assert
+        //    Assert.True(false);
+        //}
+
         [Fact]
-        public void PollStatistics_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var homeController = CreateHomeController();
-            int id = 0;
-
-            // Act
-            //var result = homeController.PollStatistics(
-            //    id);
-
-            // Assert
-            Assert.True(false);
-        }
-
-        [Fact]
-        public void CreatePollGET_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var homeController = CreateHomeController();
-
-            // Act
-            var result = homeController.CreatePoll();
-
-            // Assert
-            Assert.True(false);
-        }
-
-        [Fact]
-        public void CreatePollPOST_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-
-            var homeController = CreateHomeController();
-            var poll = new Poll(3, "3", "d3",
-                "Test", DateTime.Now, new List<Question>());
-
-            // Act
-            var result = homeController.CreatePoll(poll);
-
-            // Assert
-            Assert.IsType<RedirectToActionResult>(result);
-        }
-
-        [Fact]
-        public void EditPollGET_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var homeController = CreateHomeController();
-
-            // Act
-            var result = homeController.EditPoll();
-
-            // Assert
-            Assert.True(false);
-        }
-
-        [Fact]
-        public void EditPollPOST_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var homeController = CreateHomeController();
-            Poll poll = null;
-
-            // Act
-            var result = homeController.EditPoll(
-                poll);
-
-            // Assert
-            Assert.True(false);
-        }
-
-        [Fact]
-        public void DeleteQuestion_StateUnderTest_ExpectedBehavior()
+        public void DeleteQuestion_RemoveQuestion_TotalQuestions1()
         {
             // Arrange
             var homeController = CreateHomeController();
             _mockPollRepository.Setup(
                     repo => repo.Update(It.IsAny<Poll>()))
-                .Returns<Poll>(x => x);;
+                .Returns<Poll>(x => x); ;
 
-            homeController.ControllerContext.HttpContext.Session.Put("poll",Data.GetData()[0]);
+            homeController.ControllerContext.HttpContext.Session.Put("poll", Data.GetData()[0]);
 
             // Act
             homeController.DeleteQuestion(1);
@@ -160,5 +160,62 @@ namespace XUnitTestProject.Controllers
             var result = homeController.HttpContext.Session.Get<Poll>("poll");
             Assert.Equal(1, result.Questions.Count);
         }
+
+        [Fact]
+        public void AddQuestion_CreateNewQuestion_TotalQuestions3()
+        {
+            // Arrange
+            var homeController = CreateHomeController();
+            _mockPollRepository.Setup(
+                    repo => repo.Update(It.IsAny<Poll>()))
+                .Returns<Poll>(x => x); ;
+
+            homeController.ControllerContext.HttpContext.Session.Put("poll", Data.GetData()[0]);
+
+            // Act
+            homeController.AddQuestion();
+
+            // Assert
+
+            var result = homeController.HttpContext.Session.Get<Poll>("poll");
+            Assert.Equal(3, result.Questions.Count);
+        }
+
+        [Fact]
+        public void PassThePollGET_IsPoll_Poll()
+        {
+            // Arrange
+            var homeController = CreateHomeController();
+            _mockPollRepository.Setup(
+                    repo => repo.Update(It.IsAny<Poll>()))
+                .Returns<Poll>(x => x); ;
+
+            homeController.ControllerContext.HttpContext.Session.Put("passing_poll", Data.GetData()[0]);
+
+            // Act
+            var result = homeController.PassThePoll();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var poll = Assert.IsType<Poll>(viewResult.Model);
+            Assert.Equal("First Poll", poll.Name);
+        }
+
+        [Fact]
+        public void AddAnswer_IsPollInSession_NotFound()
+        {
+            // Arrange
+            var homeController = CreateHomeController();
+            _mockPollRepository.Setup(
+                    repo => repo.Update(It.IsAny<Poll>()))
+                .Returns<Poll>(x => x); ;
+
+            // Act
+            var result = homeController.AddAnswer(1);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
     }
 }

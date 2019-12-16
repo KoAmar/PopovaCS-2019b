@@ -17,7 +17,7 @@ namespace MainMVC.Models.Polls
 
         public Poll GetPoll(int id)
         {
-            return _polls.ElementAtOrDefault(id-1);
+            return _polls.ElementAtOrDefault(id - 1);
         }
 
         public IEnumerable<Poll> GetPolls()
@@ -33,21 +33,23 @@ namespace MainMVC.Models.Polls
 
             var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
             var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
-            _polls = UtilForPoll.SetIds(_polls, maxQuestionId, maxAnswerId);
+            _polls = _polls.SetIds(maxQuestionId, maxAnswerId);
             return poll;
         }
 
         public Poll Update(Poll pollChanges)
         {
-            //var poll = _polls.FirstOrDefault(e => e.Id == pollChanges.Id);
-            foreach (var poll in _polls)
+            var pollId = pollChanges.Id;
+            foreach (var poll in _polls.Where(poll => poll.Id == pollId))
             {
-                if (poll.Id == pollChanges.Id)
-                {
-                    poll?.Update(pollChanges);
-                }
+                poll?.Update(pollChanges);
             }
-            return pollChanges;
+
+            var maxQuestionId = UtilForPoll.MaxQuestionId(_polls);
+            var maxAnswerId = UtilForPoll.MaxAnswerId(_polls);
+            _polls = _polls.SetIds(maxQuestionId, maxAnswerId);
+
+            return GetPoll(pollId);
         }
 
         public Poll Delete(int id)

@@ -37,6 +37,7 @@ namespace MainMVC.Controllers
         public IActionResult PollStatistics(int id)
         {
             var model = _pollRepository.GetPoll(id);
+            HttpContext.Session.Put("passing_poll", model);
             return View(model);
         }
 
@@ -80,12 +81,16 @@ namespace MainMVC.Controllers
         [HttpGet]
         public IActionResult EditPoll()
         {
-            IActionResult result = NotFound();
             var poll = HttpContext.Session.Get<Poll>("poll");
 
+            IActionResult result;
             if (poll != null)
             {
                 result = View(poll);
+            }
+            else
+            {
+                result = NotFound(null);
             }
             return result;
         }
@@ -107,12 +112,83 @@ namespace MainMVC.Controllers
         {
             var poll = HttpContext.Session.Get<Poll>("poll");
             poll.Questions = poll.Questions.Where(x => x.Id != questionId).ToList();
-            //var tempPoll = new Poll {Questions = tempQuestions};
-            //poll.Questions = tempPoll.GetListCopy();
             var newPoll = _pollRepository.Update(poll);
             HttpContext.Session.Put("poll", newPoll);
 
             return RedirectToAction("EditPoll");
+        }
+
+        public IActionResult DeleteAnswer(int answerId)
+        {
+            var poll = HttpContext.Session.Get<Poll>("poll");
+
+            foreach (var question in poll.Questions)
+            {
+                question.PossibleAnswers = question.PossibleAnswers.Where(answer => answer.Id != answerId).ToList();
+            }
+
+            var newPoll = _pollRepository.Update(poll);
+            HttpContext.Session.Put("poll", newPoll);
+
+            return RedirectToAction("EditPoll");
+        }
+
+        public IActionResult AddQuestion()
+        {
+            var poll = HttpContext.Session.Get<Poll>("poll");
+
+            poll.Questions.Add(new Question());
+
+            var newPoll = _pollRepository.Update(poll);
+            HttpContext.Session.Put("poll", newPoll);
+
+            return RedirectToAction("EditPoll");
+
+        }
+
+        public IActionResult AddAnswer(int questionId)
+        {
+            IActionResult result;
+            var poll = HttpContext.Session.Get<Poll>("poll");
+
+            if (poll == null)
+            {
+                result = NotFound();
+            }
+            else
+            {
+                foreach (var question in poll.Questions)
+                {
+                    if (questionId == question.Id)
+                    {
+                        question.PossibleAnswers.Add(new Answer());
+                    }
+                }
+
+                var newPoll = _pollRepository.Update(poll);
+                HttpContext.Session.Put("poll", newPoll);
+
+                result = RedirectToAction("EditPoll");
+            }
+
+            return result;
+        }
+
+        [HttpGet]
+        public IActionResult PassThePoll()
+        {
+            var poll = HttpContext.Session.Get<Poll>("passing_poll");
+            IActionResult result;
+            if (poll != null)
+            {
+                result = View(poll);
+            }
+            else
+            {
+                result = NotFound();
+            }
+
+            return result;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

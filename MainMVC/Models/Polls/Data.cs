@@ -33,7 +33,7 @@ namespace MainMVC.Models.Polls
                         new Question(){
                             Id = 2,
                             Text = "Is this the real life?",
-                            SoleAnswer = true,
+                            SoleAnswer = false,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy?"){Id = 4 },
