@@ -28,4 +28,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8927CE64-1C7D-4B8A-8987-16C6CFDE6D5B}
 	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\PopovaCS.ndproj"
+	EndGlobalSection
 EndGlobal
