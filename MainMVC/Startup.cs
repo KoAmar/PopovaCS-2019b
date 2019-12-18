@@ -60,7 +60,7 @@ namespace MainMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=PollsList}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 //endpoints.MapControllerRoute(
                 //    name: "editQuestion",
                 //    pattern: "{controller}/{action}/{id}/{question}");

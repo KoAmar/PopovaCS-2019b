@@ -8,8 +8,8 @@ namespace MainMVC.Models.Users
     public interface IUserRepository
     {
 
-        User Login(string email, string password);
-        User Register(string email, string login, string password);
+        User Login(User user);
+        User Register(User user);
         bool ContainEmail(string email);
         User GetCurrentUser();
         bool IsLogged();

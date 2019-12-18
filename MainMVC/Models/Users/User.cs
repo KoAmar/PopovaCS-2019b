@@ -10,6 +10,11 @@ namespace MainMVC.Models.Users
     {
         public User()
         {
+            Id = 0;
+            Login = string.Empty;
+            Email = string.Empty;
+            Password = string.Empty;
+            Role = Roles.UnAuthorized;
         }
 
         public User(int id, string login, string email, string password)
@@ -30,31 +35,18 @@ namespace MainMVC.Models.Users
 
         public int Id { get; set; }
         [Required]
+        [StringLength(maximumLength: 20, MinimumLength = 3)]
         public string Login { get; set; }
         [Required]
+        [RegularExpression(@"\w{1,30}@\w{1,30}\.\w{1,15}", ErrorMessage = "Incorrect Email Format")]
         public string Email { get; set; }
         [Required]
         public Roles Role { get; set; }
         [Required]
+        [StringLength(maximumLength: 32, MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is User that)
-            {
-                return Id == that.Id &&
-                       Login == that.Login &&
-                       Email == that.Email &&
-                       Role == that.Role &&
-                       Password == that.Password;
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Id, Login, Email, Role, Password);
-        }
     }
 }

@@ -40,9 +40,9 @@ namespace MainMVC.Models.Users
                     Role = User.Roles.Admin
                 }
             };
-            _currentUser = _users[^1];
+            _currentUser = _users[0];
         }
-        
+
         public bool ContainEmail(string email)
         {
             return FindUserByEmail(email) != null;
@@ -50,35 +50,46 @@ namespace MainMVC.Models.Users
 
         public User GetCurrentUser()
         {
-            throw new NotImplementedException();
+            var userCopy = _currentUser;
+            userCopy.Password = "123456";
+            return userCopy;
         }
 
         public bool IsLogged()
         {
-            throw new NotImplementedException();
+            return _currentUser.Role != User.Roles.UnAuthorized;
         }
 
-        public User Login(string email, string password)
+        public User Login(User user)
         {
             User result = null;
-            var emailPattern = @"\w{1,30}@\w{1,30}\.\w{1,15}";
-            if (Regex.IsMatch(email, emailPattern))
-                foreach (var user in _users)
-                    if (user.Email == email)
-                        result = user;
+            const string emailPattern = @"\w{1,30}@\w{1,30}\.\w{1,15}";
+            if (!Regex.IsMatch(user.Email, emailPattern)) return null;
+
+            foreach (var dbUser in _users)
+                if (user.Email == dbUser.Email)
+                {
+                    result = dbUser;
+                    _currentUser = dbUser;
+                }
+
             return result;
         }
 
-        public User Register(string email, string login, string password)
+        public User Register(User newUser)
         {
-            var user = FindUserByEmail(email);
-            if (user == null)
-                if (IsValidLogin(login))
-                    return new User(_users.Max(e => e.Id) + 1, login, email, password);
-            return null;
+            var user = FindUserByEmail(newUser.Email);
+            if (user != null) return null;
+            newUser.Id = _users.Max(e => e.Id) + 1;
+            newUser.Role = User.Roles.User;
+
+            _users.Add(newUser);
+            _currentUser = newUser;
+            return newUser;
+
         }
 
-        public User FindUserByEmail(string email)
+        private User FindUserByEmail(string email)
         {
             User result = null;
             foreach (var user in _users)
@@ -87,21 +98,6 @@ namespace MainMVC.Models.Users
             return result;
         }
 
-        public User IsValidUser(string email, string password)
-        {
-            User result = null;
-            var user = FindUserByEmail(email);
-            if (user != null)
-                if (user.Password == password)
-                    result = user;
-            return result;
-        }
-
-        public static bool IsValidLogin(string login)
-        {
-            var loginPattern = @"\w{3,20}";
-            return Regex.IsMatch(login, loginPattern);
-        }
 
         public void ClearUsers()
         {

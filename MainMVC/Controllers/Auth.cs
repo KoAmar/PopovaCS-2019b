@@ -28,9 +28,27 @@ namespace MainMVC.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            throw new NotImplementedException();
+            return View();
         }
 
-        
+        [HttpPost]
+        public IActionResult Register(User user)
+        {
+            IActionResult result = View(user);
+            if (ModelState.IsValid)
+            {
+                if (_userRepository.Register(user) == null)
+                {
+                    result = RedirectToAction("MyPage", "Auth");
+                }
+                else
+                {
+                    result = RedirectToAction("Index", "Home");
+                }
+            }
+            return result;
+        }
+
+
     }
 }

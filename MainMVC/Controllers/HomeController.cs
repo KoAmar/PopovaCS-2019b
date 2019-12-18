@@ -28,7 +28,7 @@ namespace MainMVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult PollsList()
+        public IActionResult Index()
         {
             var model = _pollRepository.GetPolls();
             return View(model);

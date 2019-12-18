@@ -60,7 +60,7 @@ namespace XUnitTestProject.Controllers
                 .Returns(Data.GetData());
 
             // Act
-            var result = homeController.PollsList();
+            var result = homeController.Index();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
