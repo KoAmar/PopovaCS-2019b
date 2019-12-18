@@ -11,7 +11,6 @@ using MainMVC.Utilities.Controller;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace XUnitTestProject.Controllers
@@ -193,7 +192,7 @@ namespace XUnitTestProject.Controllers
             homeController.ControllerContext.HttpContext.Session.Put("passing_poll", Data.GetData()[0]);
 
             // Act
-            var result = homeController.PassThePoll();
+            var result = homeController.PassingOfThePoll();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);

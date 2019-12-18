@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XUnitTestProject
 {
-    public static class ObjectToDictionaryHelper
+    public static class ObjectToDictionaryTestHelper
     {
         public static IDictionary<string, object> ToDictionary(this object source)
         {

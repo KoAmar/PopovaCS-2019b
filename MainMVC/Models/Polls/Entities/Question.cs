@@ -29,9 +29,10 @@ namespace MainMVC.Models.Polls.Entities
 
         public int Id { get; set; }
 
-        //[Required]
+        [Required]
         public string Text { get; set; }
 
+        [Required]
         public int TotalAnswered
         {
             get
@@ -46,6 +47,7 @@ namespace MainMVC.Models.Polls.Entities
 
         }
 
+        [Required]
         public IList<Answer> PossibleAnswers { get; set; }
 
         public object Clone()

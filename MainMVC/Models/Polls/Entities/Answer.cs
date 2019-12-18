@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MainMVC.Models.Polls.Entities
 {
@@ -28,8 +29,14 @@ namespace MainMVC.Models.Polls.Entities
         }
 
         public int Id { get; set; }
+
+        [Required]
         public string Text { get; set; }
+
+        [Required]
         public bool AnswerSelected { get; set; }
+
+        [Required]
         public int AnswerSelectedCounter { get; set; }
 
         public double CountPercent(int total)

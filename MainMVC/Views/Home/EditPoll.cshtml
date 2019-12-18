@@ -4,7 +4,10 @@
     ViewData["Title"] = "EditPoll";
 }
 
+
 <h1>EditPoll</h1>
+@Html.ValidationSummary(false,
+    "", new { @class = "text-danger" })
 <div class="container px-md-5">
     @using (Html.BeginForm("EditPoll", "Home", FormMethod.Post))
     {

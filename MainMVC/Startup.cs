@@ -26,9 +26,9 @@ namespace MainMVC
                 options.UseSqlServer(Configuration.GetConnectionString("MainMVCContext")));
 
             services.AddControllersWithViews();
-            services.AddSingleton<IPollRepository, RAM_MemoryRepository>();
+            services.AddSingleton<IPollRepository, RamMemoryPollRepository>();
             //services.AddScoped<IPollRepository, SQLPollRerository>();
-            services.AddSingleton<IUserRepository, MockUserRepository>();
+            services.AddSingleton<IUserRepository, RamMemoryUserRepository>();
 
             services.AddSession();
         }

@@ -175,13 +175,59 @@ namespace MainMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult PassThePoll()
+        public IActionResult PassingOfThePoll()
         {
             var poll = HttpContext.Session.Get<Poll>("passing_poll");
             IActionResult result;
             if (poll != null)
             {
-                result = View(poll);
+                var newPoll = poll.Clone();
+                ModelState.Clear();
+                result = View(newPoll);
+            }
+            else
+            {
+                result = NotFound();
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public IActionResult PassingOfThePoll(Poll poll)
+        {
+            ModelState.Clear();
+
+            //var poll = HttpContext.Session.Get<Poll>("passing_poll");
+            IActionResult result;
+            if (poll != null)
+            {
+
+                if (ModelState.IsValid)
+                {
+                    HttpContext.Session.Remove("passing_poll");
+
+                    for (var qi = 0; qi < poll.Questions.Count; qi++)
+                    {
+                        var question = poll.Questions[qi];
+                        for (var ai = 0; ai < question.PossibleAnswers.Count; ai++)
+                        {
+                            var answer = question.PossibleAnswers[ai];
+                            if (answer.AnswerSelected)
+                            {
+                                answer.AnswerSelected = false;
+                                answer.AnswerSelectedCounter++;
+                                _pollRepository.Update(poll);
+                            }
+                        }
+                    }
+
+                    result = RedirectToAction("PollStatistics", new { poll.Id });
+                }
+                else
+                {
+                    result = NotFound();
+                }
             }
             else
             {

@@ -36,10 +36,13 @@ namespace MainMVC.Models.Polls.Entities
         [Required]
         public string Description { get; set; }
 
+        [Required]
         public string CreatorLogin { get; set; }
 
+        [Required]
         public DateTime CreationDate { get; set; }
 
+        [Required]
         public IList<Question> Questions { get; set; }
 
         public  IList<Question> GetListCopy()=> Questions.Select(question => (Question) question.Clone()).ToList();

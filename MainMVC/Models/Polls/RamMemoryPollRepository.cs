@@ -6,11 +6,11 @@ using MainMVC.Utilities.Models;
 
 namespace MainMVC.Models.Polls
 {
-    public class RAM_MemoryRepository : IPollRepository
+    public class RamMemoryPollRepository : IPollRepository
     {
         private List<Poll> _polls;
 
-        public RAM_MemoryRepository()
+        public RamMemoryPollRepository()
         {
             _polls = Data.GetData();
         }

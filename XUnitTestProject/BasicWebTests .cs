@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MainMVC;
 using MainMVC.Models.Polls.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace XUnitTestProject

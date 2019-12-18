@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using MainMVC.Models.Polls;
 using MainMVC.Models.Polls.Entities;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace XUnitTestProject.Models.Polls.Entities
 {
     public class QuestionTests
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public QuestionTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
         [Fact]
         public void UpdateTest()
         {
-            var db = new RAM_MemoryRepository();
+            var db = new RamMemoryPollRepository();
             var oldQuestion = (Question)db.GetQuestion(1).Clone();
 
             var newQuestion = new Question()
@@ -30,8 +38,8 @@ namespace XUnitTestProject.Models.Polls.Entities
             var actual = db.GetQuestion(1).PossibleAnswers[0].Text;
             var expected = newQuestion.PossibleAnswers[0].Text;
 
-            Console.WriteLine(actual);
-            Console.WriteLine(expected);
+            _testOutputHelper.WriteLine(actual);
+            _testOutputHelper.WriteLine(expected);
 
 
             //Assert.AreEqual(db.GetQuestion(1).PossibleAnswers.Count, old.PossibleAnswers.Count);

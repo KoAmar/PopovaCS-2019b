@@ -19,7 +19,7 @@ namespace XUnitTestProject.Models.Polls.Entities
         [Fact]
         public void UpdateTest()
         {
-            var db = new RAM_MemoryRepository();
+            var db = new RamMemoryPollRepository();
             var oldPoll = (Poll)db.GetPoll(1).Clone();
 
             var newPoll = new Poll()

@@ -1,0 +1,56 @@
+﻿@model MainMVC.Models.Polls.Entities.Poll
+
+<h4>Poll</h4>
+<hr />
+<div class="row justify-content-around">
+    <div class="col-md-8">
+        <form asp-action="PassingOfThePoll" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="CreatorLogin" type="hidden" />
+            <input asp-for="Name" type="hidden" />
+            <input asp-for="Description" type="hidden" />
+            @for (var qi = 0; qi < Model.Questions.Count; qi++)
+            {
+                <input asp-for="@Model.Questions[qi].Id"
+                       type="hidden" />
+                <input asp-for="@Model.Questions[qi].Text"
+                       type="hidden" />
+                <input asp-for="@Model.Questions[qi].TotalAnswered"
+                       type="hidden" />
+
+                <div class="card card-body my-1">
+                    <h3>
+                        @Model.Questions[qi].Text"
+                    </h3>
+                    <div class="card card-body my-1">
+
+                        @for (var ai = 0; ai < Model.Questions[qi].PossibleAnswers.Count; ai++)
+                        {
+                            <input asp-for="@Model.Questions[qi].PossibleAnswers[ai].Id"
+                                   type="hidden" />
+                            <input asp-for="@Model.Questions[qi].PossibleAnswers[ai].Text"
+                                   type="hidden" />
+                            <input asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelectedCounter"
+                                   type="hidden" />
+
+                            <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                           class="custom-control-input"
+                                           asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
+                                    <label class="custom-control-label"
+                                           asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
+                                        @Model.Questions[qi].PossibleAnswers[ai].Text
+                                    </label>
+                                </div>
+                        }
+                    </div>
+                </div>
+            }
+            <div class="row justify-content-around">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>

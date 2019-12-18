@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MainMVC.Models.Polls.Entities;
+using MainMVC.Models.Users;
 
 namespace MainMVC.Models
 {
@@ -18,5 +19,7 @@ namespace MainMVC.Models
         public DbSet<Poll> Polls { get; set; }
 
         public DbSet<MainMVC.Models.Polls.Entities.Question> Question { get; set; }
+
+        public DbSet<MainMVC.Models.Users.User> User { get; set; }
     }
 }

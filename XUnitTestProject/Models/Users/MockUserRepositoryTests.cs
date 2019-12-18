@@ -6,16 +6,16 @@ namespace XUnitTestProject.Models.Users
     public class MockUserRepositoryTests
     {
 
-        private MockUserRepository CreateMockUserRepository()
+        private RamMemoryUserRepository CreateMockUserRepository()
         {
-            return new MockUserRepository();
+            return new RamMemoryUserRepository();
         }
 
         [Fact]
         public void Login_UnregisteredLogin_Null()
         {
             // Arrange
-            var mockUserRepository = new MockUserRepository();
+            var mockUserRepository = new RamMemoryUserRepository();
             var email = "pavl@mail.com";
             var password = "111111";
 
@@ -24,7 +24,7 @@ namespace XUnitTestProject.Models.Users
                 Id = 1,
                 Email = "pavlik@mail.com",
                 Login = "Pavlik",
-                PasswordHash = "111111",
+                Password = "111111",
                 Role = User.Roles.User
             };
 
@@ -41,7 +41,7 @@ namespace XUnitTestProject.Models.Users
         public void Login_badLogin_Equal()
         {
             // Arrange
-            var mockUserRepository = new MockUserRepository();
+            var mockUserRepository = new RamMemoryUserRepository();
             var email = "pavl@mail.com";
             var password = "111111";
 
@@ -50,7 +50,7 @@ namespace XUnitTestProject.Models.Users
                 Id = 1,
                 Email = "pavlik@mail.com",
                 Login = "Pavlik",
-                PasswordHash = "111111",
+                Password = "111111",
                 Role = User.Roles.User
             };
 
@@ -67,7 +67,7 @@ namespace XUnitTestProject.Models.Users
         public void Login_emptyUsers_Null()
         {
             // Arrange
-            var mockUserRepository = new MockUserRepository();
+            var mockUserRepository = new RamMemoryUserRepository();
             mockUserRepository.ClearUsers();
             var email = "pavl@mail.com";
             var password = "111111";
@@ -85,7 +85,7 @@ namespace XUnitTestProject.Models.Users
         public void Login_normal_Equal()
         {
             // Arrange
-            var mockUserRepository = new MockUserRepository();
+            var mockUserRepository = new RamMemoryUserRepository();
             var email = "pavlik@mail.com";
             var password = "111111";
 
@@ -94,7 +94,7 @@ namespace XUnitTestProject.Models.Users
                 Id = 1,
                 Email = "pavlik@mail.com",
                 Login = "Pavlik",
-                PasswordHash = "111111",
+                Password = "111111",
                 Role = User.Roles.User
             };
 
