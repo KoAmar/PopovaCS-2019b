@@ -11,22 +11,19 @@ namespace MainMVC.Models.Polls.Entities
         {
             Id = 0;
             Text = "noText";
-            SoleAnswer = true;
             PossibleAnswers = new List<Answer>();
         }
 
-        public Question(string text, bool soleAnswer, IList<Answer> possibleAnswers)
+        public Question(string text,  IList<Answer> possibleAnswers)
         {
             Text = text;
-            SoleAnswer = soleAnswer;
             PossibleAnswers = possibleAnswers;
         }
 
-        public Question(int id, string text, bool soleAnswer, IList<Answer> possibleAnswers)
+        public Question(int id, string text,  IList<Answer> possibleAnswers)
         {
             Id = id;
             Text = text;
-            SoleAnswer = soleAnswer;
             PossibleAnswers = possibleAnswers;
         }
 
@@ -34,9 +31,6 @@ namespace MainMVC.Models.Polls.Entities
 
         //[Required]
         public string Text { get; set; }
-
-        //[Required]
-        public bool SoleAnswer { get; set; }
 
         public int TotalAnswered
         {
@@ -61,14 +55,13 @@ namespace MainMVC.Models.Polls.Entities
             {
                 possibleAnswers.Add((Answer)ans.Clone());
             }
-            return new Question(Id, Text, SoleAnswer, possibleAnswers);
+            return new Question(Id, Text,  possibleAnswers);
         }
 
         public void Update(Question question)
         {
             Id = question.Id;
             Text = question.Text;
-            SoleAnswer = question.SoleAnswer;
 
             PossibleAnswers.Clear();
 

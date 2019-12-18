@@ -33,7 +33,6 @@ namespace XUnitTestProject.Models.Polls.Entities
                     new Question(){
                         Id = 3,
                         Text = "Is this the real lifeee?",
-                        SoleAnswer = true,
                         PossibleAnswers = new List<Answer>()
                         {
                             new Answer("Is this just fantasy6?"){Id = 6 },

@@ -52,18 +52,18 @@ namespace MainMVC.Controllers
             {
                 //TODO Login Of creator
                 poll.CreatorLogin = "Controller";
-                poll.Questions = new List<Question>()
+                poll.Questions = new List<Question>
                 {
-                    new Question()
+                    new Question
                     {
-                        PossibleAnswers = new List<Answer>()
+                        PossibleAnswers = new List<Answer>
                         {
                             new Answer(), new Answer(), new Answer()
                         }
                     },
-                    new Question()
+                    new Question
                     {
-                        PossibleAnswers = new List<Answer>()
+                        PossibleAnswers = new List<Answer>
                         {
                             new Answer(), new Answer(), new Answer()
                         }

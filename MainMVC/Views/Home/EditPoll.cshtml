@@ -43,32 +43,27 @@
                                 Answer ID:@Model.Questions[qi].PossibleAnswers[ai].Id
                             </label>
                             <input asp-for="@Model.Questions[qi].PossibleAnswers[ai].Text" class="form-control" />
-                            <span asp-validation-for="@Model.Questions[qi].PossibleAnswers[ai].Text" 
+                            <span asp-validation-for="@Model.Questions[qi].PossibleAnswers[ai].Text"
                                   class="text-danger"></span>
                             <div class="row justify-content-around p-1">
                                 <a asp-controller="Home" asp-action="DeleteAnswer"
                                    asp-route-answerId="@Model.Questions[qi].PossibleAnswers[ai].Id"
                                    class="btn btn-warning">
                                     Delete
-                                </a></div>
+                                </a>
+                            </div>
 
                         </div>
 
                     }
                 </div>
-                <div class="row justify-content-around">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" value="@Model.Questions[qi].SoleAnswer"
-                               class="custom-control-input" asp-for="@Model.Questions[qi].SoleAnswer">
-                        <label class="custom-control-label" asp-for="@Model.Questions[qi].SoleAnswer"></label>
-                    </div>
-                    <div class="btn-group">
-                        <a asp-controller="Home" asp-action="AddAnswer" asp-route-questionId="@Model.Questions[qi].Id"
-                           class="btn btn-primary">Add Answer</a>
-                        <a asp-controller="Home" asp-action="DeleteQuestion"
-                           asp-route-questionId="@Model.Questions[qi].Id"
-                           class="btn badge-warning">Delete</a>
-                    </div>
+
+                <div class="btn-group">
+                    <a asp-controller="Home" asp-action="AddAnswer" asp-route-questionId="@Model.Questions[qi].Id"
+                       class="btn btn-primary">Add Answer</a>
+                    <a asp-controller="Home" asp-action="DeleteQuestion"
+                       asp-route-questionId="@Model.Questions[qi].Id"
+                       class="btn badge-warning">Delete</a>
                 </div>
             </div>
         }

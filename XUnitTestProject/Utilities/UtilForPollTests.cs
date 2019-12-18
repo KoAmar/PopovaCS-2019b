@@ -20,7 +20,6 @@ namespace XUnitTestProject.Utilities
                         new Question(){
                             Id = 0,
                             Text = "Is this the real life?",
-                            SoleAnswer = true,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy?"){Id = 0 },
@@ -90,7 +89,6 @@ namespace XUnitTestProject.Utilities
                         new Question(){
                             Id = 5,
                             Text = "Is this the real life?",
-                            SoleAnswer = true,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy?"){Id = 0 },

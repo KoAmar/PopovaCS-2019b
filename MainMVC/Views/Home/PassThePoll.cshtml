@@ -24,33 +24,17 @@
                                type="hidden" />
                         <input asp-for="@Model.Questions[qi].PossibleAnswers[ai].Id"
                                type="hidden" />
-                        @if (Model.Questions[qi].SoleAnswer)
-                        {
-                            <div class="custom-control custom-radio">
-                                <input type="radio"
-                                       value="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected"
-                                       class="custom-control-input"
-                                       asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
-                                <label class="custom-control-label"
-                                       asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
-                                    @Model.Questions[qi].PossibleAnswers[ai].Text
-                                </label>
-                            </div>
 
-                        }
-                        else
-                        {
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox"
-                                       value="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected"
-                                       class="custom-control-input"
-                                       asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
-                                <label class="custom-control-label"
-                                       asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
-                                    @Model.Questions[qi].PossibleAnswers[ai].Text
-                                </label>
-                            </div>
-                        }
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox"
+                                   value="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected"
+                                   class="custom-control-input"
+                                   asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
+                            <label class="custom-control-label"
+                                   asp-for="@Model.Questions[qi].PossibleAnswers[ai].AnswerSelected">
+                                @Model.Questions[qi].PossibleAnswers[ai].Text
+                            </label>
+                        </div>
                     }
                 </div>
             </div>

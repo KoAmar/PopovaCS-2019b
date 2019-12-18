@@ -22,7 +22,6 @@ namespace MainMVC.Models.Polls
                         new Question(){
                             Id = 1,
                             Text = "Is this the real life?",
-                            SoleAnswer = true,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this justы fantasy?"){Id = 1},
@@ -33,7 +32,6 @@ namespace MainMVC.Models.Polls
                         new Question(){
                             Id = 2,
                             Text = "Is this the real life?",
-                            SoleAnswer = false,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy?"){Id = 4 },
@@ -52,7 +50,6 @@ namespace MainMVC.Models.Polls
                         new Question(){
                             Id = 3,
                             Text = "Is this the real life?",
-                            SoleAnswer = true,
                             PossibleAnswers = new List<Answer>()
                             {
                                 new Answer("Is this just fantasy?"){Id = 6 },

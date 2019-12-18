@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MainMVC.Models;
+using MainMVC.Models.Polls;
+using MainMVC.Models.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using MainMVC.Models.Polls;
-using MainMVC.Models;
-using MainMVC.Models.Users;
 
 namespace MainMVC
 {
@@ -58,7 +53,7 @@ namespace MainMVC
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
             app.UseSession();
 
             app.UseEndpoints(endpoints =>
