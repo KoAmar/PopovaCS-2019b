@@ -1,0 +1,9 @@
+﻿@using MainMVC.Models.Users
+@inject IUserRepository UserRepository
+
+@if (UserRepository.GetCurrentUser().Role == MainMVC.Models.Users.User.Roles.Admin)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark"  asp-controller="Auth" asp-action="Roles">Create</a>
+    </li>
+}

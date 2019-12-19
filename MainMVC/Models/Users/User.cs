@@ -11,7 +11,7 @@ namespace MainMVC.Models.Users
         public User()
         {
             Id = 0;
-            Login = string.Empty;
+            Login = "default";
             Email = string.Empty;
             Password = string.Empty;
             Role = Roles.UnAuthorized;

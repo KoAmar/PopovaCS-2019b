@@ -36,7 +36,7 @@ namespace MainMVC.Models.Users
                     Id = 2,
                     Email = "pa1318vel@gmail.com",
                     Login = "KoAmar",
-                    Password = "111123",
+                    Password = "111111",
                     Role = User.Roles.Admin
                 }
             };
@@ -51,7 +51,7 @@ namespace MainMVC.Models.Users
         public User GetCurrentUser()
         {
             var userCopy = _currentUser;
-            userCopy.Password = "123456";
+            userCopy.Password = "_not_a_password_";
             return userCopy;
         }
 
@@ -67,7 +67,7 @@ namespace MainMVC.Models.Users
             if (!Regex.IsMatch(user.Email, emailPattern)) return null;
 
             foreach (var dbUser in _users)
-                if (user.Email == dbUser.Email)
+                if (user.Email == dbUser.Email && user.Password == dbUser.Password)
                 {
                     result = dbUser;
                     _currentUser = dbUser;
@@ -86,7 +86,6 @@ namespace MainMVC.Models.Users
             _users.Add(newUser);
             _currentUser = newUser;
             return newUser;
-
         }
 
         private User FindUserByEmail(string email)
@@ -97,7 +96,6 @@ namespace MainMVC.Models.Users
                     result = user;
             return result;
         }
-
 
         public void ClearUsers()
         {
