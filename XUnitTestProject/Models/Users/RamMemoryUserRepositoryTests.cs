@@ -5,10 +5,16 @@ namespace XUnitTestProject.Models.Users
 {
     public class RamMemoryUserRepositoryTests
     {
-
         private RamMemoryUserRepository CreateMockUserRepository()
         {
             return new RamMemoryUserRepository();
+        }
+
+        [Fact]
+        public void GetUsersTest()
+        {
+            var usersRep = CreateMockUserRepository();
+            Assert.NotNull(usersRep.GetUsers());
         }
 
         [Fact]
@@ -19,7 +25,7 @@ namespace XUnitTestProject.Models.Users
             mockUserRepository.ClearUsers();
             var email = "pavl@mail.com";
             var password = "111111";
-            var user = new User() { Email = email, Password = password };
+            var user = new User { Email = email, Password = password };
 
             // Act
             var result = mockUserRepository.Login(user);
@@ -49,6 +55,5 @@ namespace XUnitTestProject.Models.Users
             // Assert
             Assert.NotNull(result);
         }
-
     }
 }

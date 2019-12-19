@@ -7,6 +7,7 @@ using MainMVC.Models.Polls.Entities;
 using MainMVC.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace MainMVC.Controllers
 {
@@ -60,7 +61,7 @@ namespace MainMVC.Controllers
         public IActionResult Login(User user)
         {
             IActionResult result = View(user);
-            
+
             if (ModelState.IsValid)
             {
                 if (_userRepository.Login(user) == null)
@@ -77,25 +78,43 @@ namespace MainMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Roles()
+        public IActionResult UsersRolesList()
         {
-            if (_userRepository.GetCurrentUser().Role==Models.Users.User.Roles.Admin)
+            IActionResult result = NotFound();
+            if (_userRepository.GetCurrentUser().Role == Models.Users.User.Roles.Admin)
             {
-                return RedirectToAction("Index", "Home");
+                if (ModelState.IsValid)
+                {
+
+                    result = View(_userRepository.GetUsers().ToList());
+                }
+                else
+                {
+                    result = RedirectToAction("Index", "Home");
+                }
             }
-            return NotFound();
+            return result;
 
         }
 
         [HttpPost]
-        public IActionResult Roles(IEnumerable<User> users)
+        public IActionResult UsersRolesList(IEnumerable<User> users)
         {
-            if (_userRepository.GetCurrentUser().Role==Models.Users.User.Roles.Admin)
+            IActionResult result = NotFound();
+
+            if (_userRepository.GetCurrentUser().Role != Models.Users.User.Roles.Admin) return result;
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                _userRepository.SetUsers(new List<User>(users));
+                result = RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                result = View(users.ToList());
             }
 
-            return NotFound();
+            return result;
+
         }
     }
 }

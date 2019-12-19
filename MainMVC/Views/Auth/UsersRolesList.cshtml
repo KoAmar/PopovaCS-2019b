@@ -1,0 +1,33 @@
+﻿@using MainMVC.Models.Users
+@model List<MainMVC.Models.Users.User>
+
+<form asp-action="UsersRolesList" asp-controller="Auth" method="post">
+
+    <div class="row m-5">
+        <div class="col-1">Id</div>
+        <div class="col-3">Login</div>
+        <div class="col-4">Email</div>
+        <div class="col-4">Role</div>
+    </div>
+    @for (int userIndex = 0; userIndex < Model.Count(); userIndex++)
+    {
+        <div class="card m-2">
+            <div class="row m-3">
+                <input type="hidden" asp-for="@Model[userIndex].Id"/>
+                <input type="hidden" asp-for="@Model[userIndex].Login"/>
+                <input type="hidden" asp-for="@Model[userIndex].Email"/>
+                <input type="hidden" asp-for="@Model[userIndex].Password"/>
+                <div class="col-1">@Model[userIndex].Id</div>
+                <div class="col-3">@Model[userIndex].Login</div>
+                <div class="col-4">@Model[userIndex].Email</div>
+                <div class="col-4">
+                    <select asp-for="@Model[userIndex].Role"
+                            class="form-control"
+                            asp-items="@Html.GetEnumSelectList<User.Roles>()"></select>
+                </div>
+            </div></div>
+    }
+    <div class="row justify-content-around">
+        <input type="submit" value="Save" class="btn btn-success" />
+    </div>
+</form>

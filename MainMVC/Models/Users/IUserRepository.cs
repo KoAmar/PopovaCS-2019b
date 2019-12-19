@@ -13,5 +13,7 @@ namespace MainMVC.Models.Users
         bool ContainEmail(string email);
         User GetCurrentUser();
         bool IsLogged();
+        IEnumerable<User> GetUsers();
+        IEnumerable<User> SetUsers(IEnumerable<User> users);
     }
 }
