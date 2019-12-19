@@ -7,7 +7,7 @@ namespace MainMVC.Models.Users
 {
     public class RamMemoryUserRepository : IUserRepository
     {
-        private List<User> _users;
+        private readonly List<User> _users;
 
         private User _currentUser;
 
@@ -51,6 +51,11 @@ namespace MainMVC.Models.Users
         public bool IsLogged()
         {
             return _currentUser.Role != User.Roles.UnAuthorized;
+        }
+
+        public void Logout()
+        {
+            _currentUser = _users[0];
         }
 
         public IEnumerable<User> GetUsers()

@@ -1,0 +1,9 @@
+﻿@using MainMVC.Models.Users
+@inject IUserRepository UserRepository
+
+@if (UserRepository.IsLogged())
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreatePoll"> Create Poll</a>
+    </li>
+}

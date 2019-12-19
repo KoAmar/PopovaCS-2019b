@@ -42,16 +42,23 @@ namespace MainMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreatePoll() => View();
+        public IActionResult CreatePoll()
+        {
+            if (!_userRepository.IsLogged()) return NotFound();
+            return View();
+        }
 
         [HttpPost]
         public IActionResult CreatePoll(Poll poll)
         {
             IActionResult result = View();
+            if (!_userRepository.IsLogged())
+            {
+                return NotFound();
+            }
             if (ModelState.IsValid)
             {
-                //TODO Login Of creator
-                poll.CreatorLogin = "Controller";
+                poll.CreatorLogin = _userRepository.GetCurrentUser().Login;
                 poll.Questions = new List<Question>
                 {
                     new Question
@@ -177,6 +184,7 @@ namespace MainMVC.Controllers
         [HttpGet]
         public IActionResult PassingOfThePoll()
         {
+
             var poll = HttpContext.Session.Get<Poll>("passing_poll");
             IActionResult result;
             if (poll != null)

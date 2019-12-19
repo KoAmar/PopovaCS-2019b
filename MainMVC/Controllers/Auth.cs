@@ -116,5 +116,11 @@ namespace MainMVC.Controllers
             return result;
 
         }
+
+        public IActionResult LogOut()
+        {
+            _userRepository.Logout();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
