@@ -206,7 +206,6 @@ namespace MainMVC.Controllers
         {
             ModelState.Clear();
 
-            //var poll = HttpContext.Session.Get<Poll>("passing_poll");
             IActionResult result;
             if (poll != null)
             {

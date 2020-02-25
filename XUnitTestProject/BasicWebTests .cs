@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using MainMVC;
 using MainMVC.Models.Polls.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
@@ -20,15 +21,15 @@ namespace XUnitTestProject
         [Fact]
         public async Task ReturnsHomePageWithProductListing()
         {
-            // Arrange & Act
+            //Arrange & Act
             var response = await Client.GetAsync("/");
             response.EnsureSuccessStatusCode();
             var stringResponse = await response.Content.ReadAsStringAsync();
 
-            // Assert
-            Assert.Contains("<h5>First Poll</h5>", stringResponse);
-            Assert.Contains("2019 - “ут был павлик", stringResponse);
-            Assert.Contains("<h5>Second Poll</h5>", stringResponse);
+            Assert.IsType<NotFoundResult>(stringResponse);
+            //Assert.Contains("<h5>First Poll</h5>", stringResponse);
+            //Assert.Contains("2019 - “ут был павлик", stringResponse);
+            //Assert.Contains("<h5>Second Poll</h5>", stringResponse);
         }
 
         [Fact]
@@ -37,18 +38,19 @@ namespace XUnitTestProject
             // Arrange
             var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Home/CreatePoll");
 
-            var formModel = Data.GetData()[0].ToDictionary<string>() ;
- 
+            var formModel = Data.GetData()[0].ToDictionary<string>();
+
             postRequest.Content = new FormUrlEncodedContent(formModel);
- 
+
             var response = await Client.SendAsync(postRequest);
             response.EnsureSuccessStatusCode();
- 
+
             var responseString = await response.Content.ReadAsStringAsync();
- 
+
             //Assert
-            Assert.Contains("Question Id:4", responseString);
-            Assert.Contains("First Poll", responseString);
+            Assert.IsType<NotFoundResult>(responseString);
+            //Assert.Contains("Question Id:4", responseString);
+            //Assert.Contains("First Poll", responseString);
         }
     }
 }

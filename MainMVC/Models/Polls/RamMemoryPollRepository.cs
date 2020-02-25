@@ -3,6 +3,7 @@ using MainMVC.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using MainMVC.Utilities.Models;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace MainMVC.Models.Polls
 {
@@ -118,6 +119,7 @@ namespace MainMVC.Models.Polls
 
         public Answer UpdateAnswer(Answer answerChanges)
         {
+            Answer result = null;
             foreach (var poll in _polls)
             {
                 foreach (var question in poll.Questions)
@@ -127,11 +129,37 @@ namespace MainMVC.Models.Polls
                         if (answer.Id == answerChanges.Id)
                         {
                             answer.Update(answerChanges);
+                            result = answerChanges;
                         }
                     }
                 }
             }
-            return answerChanges;
+            return result;
+        }
+
+        public void ClearPoll()
+        {
+            _polls.Clear();
+        }
+
+        public void ClearQue()
+        {
+            foreach (var poll in _polls)
+            {
+                poll.Questions.Clear();
+            }
+            _polls. Clear();
+        }
+
+        public void ClearAnsw()
+        {
+            foreach (var poll in _polls)
+            {
+                foreach (var pollQuestion in poll.Questions)
+                {
+                    pollQuestion.PossibleAnswers.Clear();
+                }
+            }
         }
     }
 }
